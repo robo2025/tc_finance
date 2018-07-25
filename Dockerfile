@@ -1,7 +1,7 @@
 FROM robo2025/python:3.6-alpine
 ENV PYTHONUNBUFFERED 1
 
-COPY ../../Desktop /project/financialserver
+COPY . /project/financialserver
 
 WORKDIR /project/financialserver
 

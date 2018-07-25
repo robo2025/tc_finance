@@ -9,7 +9,7 @@ version: "3"
     
 services:
   web:
-    build: ../../Desktop
+    build: .
     env_file: common.env
     ports:
       - "8020:8000"
