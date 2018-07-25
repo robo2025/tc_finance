@@ -1,0 +1,1 @@
+class PubErrorCustom(Exception):    def __init__(self,msg):        super(PubErrorCustom,self).__init__()        self.msg = msg

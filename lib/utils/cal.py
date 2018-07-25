@@ -1,0 +1,1 @@
+import timefrom functools import wrapsdef time_consuming(func):	@wraps(func)	def wrapper(*args,**kwargs):		t1 = time.time()		data=func(*args,**kwargs)		t2 = time.time()		print('函数[{}]耗时:{}'.format( getattr(func, '__name__'),t2 - t1))		return data	return wrapper

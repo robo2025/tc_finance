@@ -1,0 +1,17 @@
+#####
+# Docker compose YAML file
+#
+# For documentation see: https://docs.docker.com/compose/yml/
+#####
+
+version: "3"
+
+    
+services:
+  web:
+    build: ../../Desktop
+    env_file: common.env
+    ports:
+      - "8020:8000"
+    volumes:
+      - /opt/vol/logs/financial:/project/financialserver/logs
