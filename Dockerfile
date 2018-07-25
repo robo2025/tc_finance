@@ -13,4 +13,4 @@ RUN apk --no-cache add tzdata  && \
     ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && \
     echo "Asia/Shanghai" > /etc/timezone
 
-CMD ["uwsgi", "/project/financialserver/financial_management/wsgi/uwsgi.ini"]
+CMD ["uwsgi", "/project/financialserver/FSys/wsgi/uwsgi.ini"]
