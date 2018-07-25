@@ -1,8 +1,9 @@
 
-from openpyxl import Workbook
 import time
+from datetime import datetime
 import uuid
-
+from dateutil.relativedelta import relativedelta
+from openpyxl import Workbook
 import calendar as cal
 import requests,json
 
@@ -23,6 +24,8 @@ def timestamp_to_date(timestamp):
     return date
 
 
+
+
 def timestamp_to_datetime(timestamp):
     """时间戳转日期时间格式"""
     time_arr = time.localtime(float(timestamp))
@@ -41,6 +44,36 @@ def datetime_to_timestamp(dt):
         time_arr = time.strptime(date, '%Y-%m-%d %H:%M:%S')
     return time.mktime(time_arr)
 
+
+#把datetime转成字符串
+def datetime_toString(dt):
+    return dt.strftime("%Y-%m-%d-")
+
+#把字符串转成datetime
+def string_toDatetime(string):
+    return datetime.strptime(string, "%Y-%m-%d")
+
+#把字符串转成时间戳形式
+def string_toTimestamp(strTime):
+    return time.mktime(string_toDatetime(strTime).timetuple())
+
+#把时间戳转成字符串形式
+def timestamp_toString(stamp):
+    return time.strftime("%Y-%m-%d", time.localtime(stamp))
+
+#把datetime类型转外时间戳形式
+def datetime_toTimestamp(dateTim):
+    return time.mktime(dateTim.timetuple())
+
+def get_time():
+    return time.strftime("%Y-%m-%d %H:%M:%S")
+
+def get_date():
+    return time.strftime("%Y-%m-%d")
+
+#月份相减
+def month_sub(datet=get_time,m=0):
+    return datet- relativedelta(months=m)
 
 # 获取供应商信息
 def Get_Supplier(supplier_id):
@@ -67,11 +100,7 @@ def Get_Rule_Code(type=None):
         response_dict = json.loads(response.text)
         return response_dict['data']['ticket_id']
 
-def get_time():
-    return time.strftime("%Y-%m-%d %H:%M:%S")
 
-def get_date():
-    return time.strftime("%Y-%m-%d")
 
 def get_open_receipt_sn():
     """获取开票sn"""

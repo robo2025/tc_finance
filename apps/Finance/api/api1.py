@@ -309,7 +309,7 @@ class StatementViewset(ModelViewSetCustom):
 		serializer=StatementSerializer(instance)
 		serializer_detail=StatementDetailSerializer(StatementDetail.objects.filter(code=code).order_by('-add_time'), many=True)
 		return {"data":{'title':serializer.data,'detail':serializer_detail.data}}
-	
+
 	@Core_connector(transaction=True)
 	def destroy(self, request, *args, **kwargs):
 		codes=request.data.get('codes', [])
