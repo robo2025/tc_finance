@@ -1113,6 +1113,8 @@ class FINReceiptListDetailSerializer(serializers.Serializer):
 class FINReceiptListSerializer(serializers.Serializer):
 	id=serializers.IntegerField()
 	goods_name = serializers.SerializerMethodField()
+	price=serializers.SerializerMethodField()
+	number=serializers.IntegerField()
 	unit = serializers.CharField()
 	tax_rate = serializers.SerializerMethodField()
 	notax = serializers.SerializerMethodField()
@@ -1121,6 +1123,8 @@ class FINReceiptListSerializer(serializers.Serializer):
 
 	def get_goods_name(self,obj):
 		return obj.name
+	def get_price(self,obj):
+		return obj.price
 	def get_tax_rate(self,obj):
 		return obj.rate
 	def get_notax(self,obj):
