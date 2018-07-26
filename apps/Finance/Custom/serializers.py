@@ -1126,7 +1126,7 @@ class FINReceiptListSerializer(serializers.Serializer):
 	def get_price(self,obj):
 		return obj.price
 	def get_tax_rate(self,obj):
-		return obj.rate
+		return obj.rate*100
 	def get_notax(self,obj):
 		return obj.taxfree_money
 	def get_tax(self,obj):
@@ -1144,6 +1144,10 @@ class FINReceiptSerializer(serializers.Serializer):
 	bank = serializers.SerializerMethodField()
 	account = serializers.SerializerMethodField()
 	open_receipt_time = serializers.SerializerMethodField()
+	custom = serializers.CharField()
+	addr = serializers.CharField()
+	mobile=serializers.CharField()
+	receipt_url = serializers.SerializerMethodField()
 
 	def get_title(self,obj):
 		return obj.receipt_title
@@ -1157,3 +1161,5 @@ class FINReceiptSerializer(serializers.Serializer):
 		return obj.receipt_account
 	def get_open_receipt_time(self,obj):
 		return datetime_to_timestamp(obj.create_time)
+	def get_receipt_url(self,obj):
+		return obj.img
