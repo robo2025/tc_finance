@@ -370,7 +370,6 @@ class StatementViewset(ModelViewSetCustom):
 		else:
 			raise AssertionError("对账单[%s]记录不存在！"%(obj.code))
 		return []
-	
 			
 # 客户开票
 class TicketViewset(GenericViewSetCustom):

@@ -30,33 +30,48 @@ TICKET_STATUS = (
 )
 class CustomPlanOrder(PlanOrder):
 	receipt_id=None
+	order_operation_record_status=None
+	type = None
+
+	price=None
+	use_pay_total=None
+	use_commission=None
+	ticket_amount=None
+	order_code=None
+
 	tax_number=None
 	title=None
-	order_operation_record_status=None
+	company_address=None
 	telephone=None
 	bank=None
-	company_address=None
 	account=None
 	receipt_type=None
-	type = None
+
 	class Meta:
 		managed = False
 
 class CustomOrder(OrderDetail):
 
 	receipt_id=None
-	tax_number=None
-	title=None
 	order_sn=None
 	returns_sn=None
-	receipt_type=None
 	order_operation_record_status=None
+	link_order_sn=None
+	type=None
+
+	price=None
+	ticket_amount = None
+	use_pay_total=None
+	use_commission=None
+	order_code=None
+
+	tax_number=None
+	title=None
 	company_address=None
 	telephone=None
 	bank=None
 	account=None
-	link_order_sn=None
-	type=None
+	receipt_type=None
 
 	class Meta:
 		managed = False
@@ -253,6 +268,7 @@ class FReceipt(models.Model):
 	receipt_account = models.CharField(max_length=20, default='开户账号')
 
 	goods_money = models.DecimalField(default=0.0,max_digits=18, decimal_places=2,verbose_name='货款合计')
+	number=models.IntegerField(default=0,verbose_name='数量合计')
 	receipt_money = models.DecimalField(default=0.0,max_digits=18, decimal_places=2,verbose_name='开票金额')
 
 	custom=models.CharField(max_length=60,null=True,default="",verbose_name='联系人')
@@ -268,28 +284,24 @@ class FReceipt(models.Model):
 
 class FReceiptList(models.Model):
 	receipt_sn = models.CharField(max_length=60,null=True,default='',verbose_name='发票编号')
-	goods_sn = models.CharField(max_length=30,default='',verbose_name='商品ID')
-	goods_name = models.CharField(max_length=255,default='',verbose_name='商品名称')
-	model = models.CharField(max_length=255,default='',verbose_name='型号')
-	unit = models.CharField(max_length=10,default='',verbose_name='商品单位')
+	name = models.CharField(max_length=255,default='',verbose_name='货物或应税劳务名称')
+	unit = models.CharField(max_length=10,default='',verbose_name='单位')
 	number = models.IntegerField(default=0,verbose_name='数量')
 	price = models.DecimalField(default=0.0,max_digits=18, decimal_places=2,verbose_name='单价')
 	rate = models.DecimalField(default=0.16,max_digits=18, decimal_places=2,verbose_name='税率')
+	taxfree_money = models.DecimalField(default=0.0,max_digits=18, decimal_places=2,verbose_name='未税金额')
 
-	taxfree_money = models.DecimalField(default=0.0,max_digits=18, decimal_places=2,verbose_name='免税金额')
 	tax_money=models.DecimalField(default=0.0,max_digits=18, decimal_places=2,verbose_name='含税金额')
 	total_money=models.DecimalField(default=0.0,max_digits=18, decimal_places=2,verbose_name='价税合计')
-	flag=models.IntegerField(default=1)  #1:货款开票   2:佣金开票
-	create_time=models.DateTimeField(default=datetime.now,verbose_name='添加时间')
-
+	upd_time=models.DateTimeField(default=datetime.now,verbose_name='修改时间')
 	class Meta:
 		verbose_name = '开票信息'
 		db_table = 'receiptlist'
 
 class FReceiptListDetail(models.Model):
-
 	receipt_sn = models.CharField(max_length=60,null=True,default='',verbose_name='发票编号')
 	order_code = models.CharField(max_length=60, default='',verbose_name='订单号/退货号/方案订单号')
+	order_time = models.DateTimeField(verbose_name='订单时间')
 	goods_sn = models.CharField(max_length=30,default='',verbose_name='商品ID')
 	goods_name = models.CharField(max_length=255,default='',verbose_name='商品名称')
 	model = models.CharField(max_length=255,default='',verbose_name='型号')
@@ -297,12 +309,12 @@ class FReceiptListDetail(models.Model):
 	number = models.IntegerField(default=0,verbose_name='商品数量')
 	price = models.DecimalField(default=0.0,max_digits=18, decimal_places=2,verbose_name='单价')
 	goods_money = models.DecimalField(default=0.0, max_digits=18, decimal_places=2,verbose_name='货款合计')
-	commission =  models.DecimalField(default=0.0, max_digits=18, decimal_places=2)
+	commission =  models.DecimalField(default=0.0, max_digits=18, decimal_places=2,verbose_name='佣金')
 	receipt_money = models.DecimalField(default=0.0, max_digits=18, decimal_places=2,verbose_name='货款开票金额/佣金开票金额')
-	flag=models.IntegerField(default=1)  #1:货款开票   2:佣金开票
-	create_time=models.DateTimeField(default=datetime.now,verbose_name='添加时间')
-	
+
+	create_time=None
 	guest_company_name=None
+	total_money=None
 
 	class Meta:
 		verbose_name = '开票信息'

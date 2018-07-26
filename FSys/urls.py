@@ -6,12 +6,14 @@ from rest_framework.documentation import include_docs_urls
 from Finance.api.api1 import (  PriceruleViewSet,
                                 RefundOrderViewSet,
                                 StatementViewset,
-                                TicketViewset,
+                                # TicketViewset,
                                 StatementDetaiExlViewset,
                                 TranListViewset,
                                 MediaExport)
 
-from Finance.api.api2 import ( CommissionTicket,CommissionTicketQuery)
+from Finance.api.api2 import ( CommissionTicket,CommissionTicketQuery,TicketViewset)
+
+from Finance.api.supplier import StatementSupViewset,StatementSupDetaiExlViewset
 
 
 route_urls=[
@@ -33,6 +35,11 @@ route_urls=[
     ('financial/commission_ticket',CommissionTicket),
     # 报表中心-佣金开票查询
     ('financial/commission_ticket_query',CommissionTicketQuery),
+
+    # ####供应商
+    ('financial/sup/statement',StatementSupViewset),
+    ('financial/sup/statementexdetail', StatementSupDetaiExlViewset),
+
 ]
 
 

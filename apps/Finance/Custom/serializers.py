@@ -697,10 +697,10 @@ class NoFinanceReceiptSerializer(serializers.Serializer):
 	title=serializers.CharField()
 	date=serializers.SerializerMethodField()
 	type=serializers.SerializerMethodField()
-	order_code=serializers.SerializerMethodField()
+	order_code=serializers.CharField()
 	goods_name=serializers.CharField()
 	model=serializers.CharField()
-	price=serializers.SerializerMethodField()
+	price=serializers.DecimalField(max_digits=18, decimal_places=2)
 	number=serializers.IntegerField()
 	amount=serializers.SerializerMethodField()
 	ticket_amount=serializers.SerializerMethodField()
@@ -711,22 +711,18 @@ class NoFinanceReceiptSerializer(serializers.Serializer):
 	def get_date(self,obj):
 		return obj.add_time.date()
 	def get_type(self,obj):
-		return '订单' if obj.order_operation_record_status==6  else '退货单'
-	def get_order_code(self,obj):
-		return obj.son_order_sn if obj.order_operation_record_status==6 else obj.returns_sn
-	def get_price(self,obj):
-		return obj.univalent
-	def get_amount(self,obj):
-		return obj.subtotal_money if obj.order_operation_record_status==6  else Decimal(0.0) - obj.subtotal_money
-	def get_ticket_amount(self,obj):
-		return obj.subtotal_money if obj.order_operation_record_status==6  else Decimal(0.0)-obj.subtotal_money
-	def get_ticket_tot(self,obj):
-		return 0.0
-	def get_order_code_tmp(self,obj):
-		return obj.son_order_sn if obj.order_operation_record_status == 6 else obj.returns_sn
-	def get_index(self,obj):
-		return obj.son_order_sn if obj.order_operation_record_status == 6 else obj.returns_sn
+		return '订单' if obj.order_code[:2]!='TH' else '退货单'
 
+	def get_amount(self,obj):
+		return obj.use_pay_total
+	def get_ticket_amount(self,obj):
+		return obj.use_pay_total
+	def get_ticket_tot(self,obj):
+		return obj.use_pay_total-obj.ticket_amount
+	def get_order_code_tmp(self,obj):
+		return obj.order_code
+	def get_index(self,obj):
+		return obj.order_code
 
 class NoFinanceReceiptPlanOrderSerializer(NoFinanceReceiptSerializer):
 	goods_sn=serializers.SerializerMethodField()
@@ -949,7 +945,7 @@ class FinanceReceiptDetailSerializer1(serializers.Serializer):
 	def get_ticket_tot(self,obj):
 		return obj.receipt_money
 	def get_order_code_tmp(self,obj):
-		return obj.receipt_id
+		return obj.receipt_sn
 	def get_open_receipt_time(self,obj):
 		return datetime_to_timestamp(obj.create_time)
 	def get_index(self,obj):
@@ -996,13 +992,13 @@ class FinanceReceiptDetailSerializer(serializers.Serializer):
 	receipt_sn=serializers.CharField()
 
 	def get_title(self,obj):
-		return FinanceReceiptSerializer(FinanceReceipt.objects.get(receipt_id=obj.receipt_sn),many=False).data
+		return FINReceiptSerializer(FReceipt.objects.get(receipt_sn=obj.receipt_sn),many=False).data
 
 	def get_goods_merge(self,obj):
-		return FinanceReceiptListSerializer(FinanceReceiptList.objects.filter(receipt_id=obj.receipt_sn), many=True).data
+		return FINReceiptListSerializer(FReceiptList.objects.filter(receipt_sn=obj.receipt_sn), many=True).data
 
 	def get_goods_list(self,obj):
-		return FinanceReceiptListDetailSerializer(FinanceReceiptListDetail.objects.filter(receipt_id=obj.receipt_sn), many=True).data
+		return FINReceiptListDetailSerializer(FReceiptListDetail.objects.filter(receipt_sn=obj.receipt_sn), many=True).data
 
 class FReceiptListDetailSerializer(serializers.Serializer):
 	receipt_sn = serializers.CharField()
@@ -1016,14 +1012,9 @@ class FReceiptListDetailSerializer(serializers.Serializer):
 	goods_money = serializers.DecimalField(max_digits=18, decimal_places=2)
 	commission = serializers.DecimalField(max_digits=18, decimal_places=2)
 	receipt_money =serializers.DecimalField(max_digits=18, decimal_places=2)
-	flag= serializers.IntegerField()
-	create_time = serializers.DateTimeField()
 	
 class FReceiptListSerializer(serializers.Serializer):
 	receipt_sn = serializers.CharField()
-	goods_sn = serializers.CharField()
-	goods_name = serializers.CharField()
-	model = serializers.CharField()
 	unit = serializers.CharField()
 	number = serializers.IntegerField()
 	price = serializers.DecimalField(max_digits=18, decimal_places=2)
@@ -1031,8 +1022,9 @@ class FReceiptListSerializer(serializers.Serializer):
 	taxfree_money = serializers.DecimalField(max_digits=18, decimal_places=2)
 	tax_money=serializers.DecimalField(max_digits=18, decimal_places=2)
 	total_money=serializers.DecimalField(max_digits=18, decimal_places=2)
-	flag=serializers.IntegerField()
-	create_time=serializers.DateTimeField()
+	upd_time=serializers.DateTimeField()
+	name=serializers.CharField()
+
 		
 class FReceiptSerializer(serializers.Serializer):
 	receipt_sn = serializers.CharField()
@@ -1055,15 +1047,18 @@ class FReceiptSerializer(serializers.Serializer):
 	addr = serializers.CharField()
 	mobile = serializers.CharField()
 	img = serializers.CharField()
-	create_time = serializers.DateTimeField()
-	flag = serializers.CharField()
+	receipt_date=serializers.SerializerMethodField()
 
+	def get_receipt_date(self,obj):
+		return obj.create_time[:10]
 
 class NoFRceiptSerializer(serializers.Serializer):
 	code=serializers.CharField()
+	supplier_id=serializers.CharField()
 	supplier_name = serializers.CharField()
 	limit=serializers.SerializerMethodField()
 	date=serializers.SerializerMethodField()
+	filter_date=serializers.SerializerMethodField()
 	typename=serializers.SerializerMethodField()
 	order_code=serializers.SerializerMethodField()
 	goods_name=serializers.CharField()
@@ -1082,6 +1077,8 @@ class NoFRceiptSerializer(serializers.Serializer):
 	def get_date(self,obj):
 		date=str(obj.order_date if not obj.other_code else obj.refund_date)
 		return '{}年{}月{}日'.format(date[:4],date[6:7],date[9:])
+	def get_filter_date(self,obj):
+		return str(obj.order_date if not obj.other_code else obj.refund_date)
 	def get_typename(self,obj):
 		return "订单" if not obj.other_code else "退货单"
 	def get_amount(self,obj):
@@ -1099,4 +1096,60 @@ class YesFRceiptSerializer(NoFRceiptSerializer):
 	
 	def get_tot_amount(self,obj):
 		return obj.commission1
-	
+
+class FINReceiptListDetailSerializer(serializers.Serializer):
+	goods_name = serializers.CharField()
+	model = serializers.CharField()
+	number = serializers.IntegerField()
+	price = serializers.DecimalField(max_digits=18, decimal_places=2)
+	amount = serializers.SerializerMethodField()
+	ticket_money = serializers.SerializerMethodField()
+
+	def get_amount(self,obj):
+		return obj.goods_money
+	def get_ticket_money(self,obj):
+		return obj.receipt_money
+
+class FINReceiptListSerializer(serializers.Serializer):
+	id=serializers.IntegerField()
+	goods_name = serializers.SerializerMethodField()
+	unit = serializers.CharField()
+	tax_rate = serializers.SerializerMethodField()
+	notax = serializers.SerializerMethodField()
+	tax = serializers.SerializerMethodField()
+	ticket_money = serializers.SerializerMethodField()
+
+	def get_goods_name(self,obj):
+		return obj.name
+	def get_tax_rate(self,obj):
+		return obj.rate
+	def get_notax(self,obj):
+		return obj.taxfree_money
+	def get_tax(self,obj):
+		return obj.tax_money
+	def get_ticket_money(self,obj):
+		return obj.total_money
+
+class FINReceiptSerializer(serializers.Serializer):
+	title = serializers.SerializerMethodField()
+	company_address = serializers.SerializerMethodField()
+	telephone = serializers.SerializerMethodField()
+	receipt_type = serializers.CharField()
+	receipt_sn = serializers.CharField()
+	tax_number = serializers.CharField()
+	bank = serializers.SerializerMethodField()
+	account = serializers.SerializerMethodField()
+	open_receipt_time = serializers.SerializerMethodField()
+
+	def get_title(self,obj):
+		return obj.receipt_title
+	def get_company_address(self,obj):
+		return obj.receipt_addr
+	def get_telephone(self,obj):
+		return obj.receipt_mobile
+	def get_bank(self,obj):
+		return obj.receipt_bank
+	def get_account(self,obj):
+		return obj.receipt_account
+	def get_open_receipt_time(self,obj):
+		return datetime_to_timestamp(obj.create_time)
