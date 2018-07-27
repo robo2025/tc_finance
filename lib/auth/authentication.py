@@ -7,7 +7,7 @@ from rest_framework import exceptions
 from rest_framework.authentication import BaseAuthentication
 
 from auth import get_user
-from core_account.http.response import ResCode
+from core.http.response import ResCode
 
 class UserType:
     user = 1

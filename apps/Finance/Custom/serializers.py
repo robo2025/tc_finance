@@ -32,7 +32,7 @@ from .com_method import Get_Supplier,Get_Rule_Code,Get_mse_day,Get_mse_day_msg,d
 from utils.exceptions import PubErrorCustom
 from utils.cal import time_consuming
 
-from core_account.http.request import send_request
+from core.http.request import send_request
 
 from FSys.config.extra import PALN_API_TOKEN,PLAN_API_HOST
 

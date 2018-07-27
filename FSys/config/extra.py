@@ -26,7 +26,7 @@ GOODS_API_HOST = os.environ.get('GOODS_API_HOST', 'http://testapi.robo2025.com/s
 STOCK_API_HOST = os.environ.get('STOCK_API_HOST', 'http://testapi.robo2025.com/shop')
 
 # 供应商查询主机
-SUPPLIER_API_HOST = os.environ.get('SUPPLIER_API_HOST', 'https://testapi.robo2025.com/users')
+SUPPLIER_API_HOST = os.environ.get('SUPPLIER_API_HOST', 'https://testapi.robo2025.com/user')
 
 
 

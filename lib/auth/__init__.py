@@ -5,7 +5,7 @@ from django.conf import settings
 from django.contrib.auth.models import AnonymousUser
 from django.contrib.auth import get_user_model
 from utils.log import logger
-from core_account.http.response import res_code, ResCode
+from core.http.response import res_code, ResCode
 
 User = get_user_model()
 
