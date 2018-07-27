@@ -94,7 +94,7 @@ def Get_Rule_Code(type=None):
             4: 结算单
         """
         headers = {'content-type': 'application/json',
-               'user-agent': "User-Agent:Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Safari/537.36"}
+               'users-agent': "User-Agent:Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Safari/537.36"}
         parameters = json.dumps({'finance_type': type})
         response = requests.post(ORDER_API_HOST + '/api/finance', data=parameters, headers=headers, verify=False)
         response_dict = json.loads(response.text)
@@ -106,7 +106,7 @@ def get_open_receipt_sn():
     """获取开票sn"""
     """获取对账单号"""
     headers = {'content-type': 'application/json', \
-               'user-agent': "User-Agent:Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Safari/537.36"}
+               'users-agent': "User-Agent:Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Safari/537.36"}
     parameters = json.dumps({})
     try:
         response = requests.post(ORDER_API_HOST + '/api/receipt', data=parameters, headers=headers, verify=False)

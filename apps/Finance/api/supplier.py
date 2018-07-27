@@ -1,6 +1,6 @@
 
 from rest_framework.decorators import detail_route, list_route
-from core.decorator.response import Core_connector
+from core_account.decorator.response import Core_connector
 from auth.authentication import SupplierAuthentication
 from utils.exceptions import PubErrorCustom
 

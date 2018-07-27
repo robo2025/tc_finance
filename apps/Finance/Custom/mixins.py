@@ -3,7 +3,7 @@
 from django.http import Http404
 from rest_framework import (viewsets,mixins)
 
-from core.decorator.response import Core_connector
+from core_account.decorator.response import Core_connector
 
 from ..Custom.pagination import BasePaginationCustom
 from ..Custom.filters import BaseCustomFilter

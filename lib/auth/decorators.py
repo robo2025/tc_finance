@@ -10,7 +10,7 @@ from utils.response import ResCode
 
 
 def token_required(view_func):
-    """Decorator which ensures the user has provided a correct user and token pair."""
+    """Decorator which ensures the users has provided a correct users and token pair."""
 
     @csrf_exempt
     @wraps(view_func)

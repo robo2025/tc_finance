@@ -14,7 +14,7 @@ exclued_path = [re.compile(item) for item in settings.EXCLUDE_URL]
 #             if re.match(item, url_path):
 #                 return
 #
-#         if not request.user.is_authenticated:
+#         if not request.users.is_authenticated:
 #             return HttpResponseRedirect('/login/')
 
 

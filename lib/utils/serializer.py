@@ -58,5 +58,5 @@ class UrlField(serializers.CharField):
 class BaseSerializer:
     def __init__(self, *args, **kwargs):
         self.request = kwargs.pop('request', None)
-        self.user = kwargs.pop('user', None)
+        self.user = kwargs.pop('users', None)
         super().__init__(*args, **kwargs)

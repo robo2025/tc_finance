@@ -10,3 +10,4 @@ mysqlclient
 python-dateutil
 django-cors-headers
 openpyxl
+django-import-export

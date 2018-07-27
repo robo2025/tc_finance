@@ -21,4 +21,4 @@ class SSOClientAuthenticationMiddleware(MiddlewareMixin):
             "'django.contrib.auth.middleware.AuthenticationMiddleware'."
         ) % ("_CLASSES" if settings.MIDDLEWARE is None else "")
         request.user = SimpleLazyObject(lambda: get_user(request))
-        # request.user=get_user(request)
+        # request.users=get_user(request)

@@ -5,15 +5,15 @@ from django.conf import settings
 from django.contrib.auth.models import AnonymousUser
 from django.contrib.auth import get_user_model
 from utils.log import logger
-from core.http.response import res_code, ResCode
+from core_account.http.response import res_code, ResCode
 
 User = get_user_model()
 
 
 def get_user(request):
     """
-    Return the user model instance associated with the given request session.
-    If no user is retrieved, return an instance of `AnonymousUser`.
+    Return the users model instance associated with the given request session.
+    If no users is retrieved, return an instance of `AnonymousUser`.
     """
 
     user = AnonymousUser()
