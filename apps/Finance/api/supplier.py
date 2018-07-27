@@ -46,10 +46,10 @@ class StatementSupViewset(ListModelMixinCustom,GenericViewSetCustom):
         object = Statement.objects.filter(code=code)
         if object.exists():
             for obj in object:
-                assert obj.status == 3, '对账单[%s]状态有误！' % (obj.code)
-                obj.status = 4
+                assert obj.status == 2, '对账单[%s]状态有误！' % (obj.code)
+                obj.status = 3
                 obj.save()
-                StatementDetail.objects.filter(code=obj.code).update(status=4)
+                StatementDetail.objects.filter(code=obj.code).update(status=3)
         else:
             raise AssertionError("对账单[%s]记录不存在！" % (obj.code))
         return []
