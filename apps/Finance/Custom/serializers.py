@@ -1141,6 +1141,7 @@ class FINReceiptSerializer(serializers.Serializer):
 	receipt_type = serializers.CharField()
 	receipt_sn = serializers.CharField()
 	tax_number = serializers.CharField()
+	receipt_no = serializers.CharField()
 	bank = serializers.SerializerMethodField()
 	account = serializers.SerializerMethodField()
 	open_receipt_time = serializers.SerializerMethodField()
