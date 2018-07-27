@@ -949,7 +949,7 @@ class FinanceReceiptDetailSerializer1(serializers.Serializer):
 	def get_open_receipt_time(self,obj):
 		return datetime_to_timestamp(obj.create_time)
 	def get_index(self,obj):
-		return obj.order_code
+		return obj.order_code if obj.order_code[:2]!='FA' else obj.receipt_sn
 
 class FinanceReceiptListSerializer(serializers.ModelSerializer):
 	notax=serializers.SerializerMethodField()
