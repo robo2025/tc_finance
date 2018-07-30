@@ -15,7 +15,6 @@ from Finance.api.api2 import ( CommissionTicket,CommissionTicketQuery,TicketView
 
 from Finance.api.supplier import StatementSupViewset,StatementSupDetaiExlViewset
 
-
 route_urls=[
     # 结算价格规则列表
     ('financial/price_rule',PriceruleViewSet),
@@ -36,10 +35,9 @@ route_urls=[
     # 报表中心-佣金开票查询
     ('financial/commission_ticket_query',CommissionTicketQuery),
 
-    # ####供应商
+    # 供应商
     ('financial/sup/statement',StatementSupViewset),
     ('financial/sup/statementexdetail', StatementSupDetaiExlViewset),
-
 ]
 
 
