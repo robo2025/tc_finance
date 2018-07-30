@@ -998,7 +998,13 @@ class FinanceReceiptDetailSerializer(serializers.Serializer):
 		return FINReceiptListSerializer(FReceiptList.objects.filter(receipt_sn=obj.receipt_sn), many=True).data
 
 	def get_goods_list(self,obj):
-		return FINReceiptListDetailSerializer(FReceiptListDetail.objects.filter(receipt_sn=obj.receipt_sn), many=True).data
+		receipt_list_detail=FReceiptListDetail.objects.filter(receipt_sn=obj.receipt_sn)
+		if not receipt_list_detail.exists():
+			raise PubErrorCustom("数据错误！")
+		if receipt_list_detail[0].order_code[:2]=='FA':
+			return []
+		else:
+			return FINReceiptListDetailSerializer(FReceiptListDetail.objects.filter(receipt_sn=obj.receipt_sn), many=True).data
 
 class FReceiptListDetailSerializer(serializers.Serializer):
 	receipt_sn = serializers.CharField()
