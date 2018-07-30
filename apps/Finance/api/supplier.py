@@ -11,7 +11,7 @@ from apps.Finance.models import Statement,StatementDetail
 # 对账单
 class StatementSupViewset(ListModelMixinCustom,GenericViewSetCustom):
 
-    authentication_classes = [SupplierAuthentication]
+    #authentication_classes = [SupplierAuthentication]
     filters_custom =[
         {'key': "limit", 'condition': "gte", 'inkey': 'start_ym' ,'func' :lambda x :x.replace('-' ,'')},
         {'key': "limit", 'condition': "lte", 'inkey': 'end_ym' ,'func' :lambda x :x.replace('-' ,'')},
@@ -69,7 +69,7 @@ class StatementSupDetaiExlViewset(GenericViewSetCustom):
     @list_route(methods=['GET'])
     @Core_connector(pagination=True)
     def statement(self, request, *args, **kwargs):
-            return {"data":self.get_serializer(StatementDetail.objects.filter(status=4).order_by('-add_time'), many=True).data}
+            return {"data":self.get_serializer(StatementDetail.objects.filter(status=3).order_by('-add_time'), many=True).data}
 
     @list_route(methods=['GET'])
     @Core_connector(pagination=True)
@@ -85,7 +85,7 @@ class StatementSupDetaiExlViewset(GenericViewSetCustom):
         data=[]
         from decimal import Decimal
         for item in statement_list:
-            if  StatementDetail.objects.filter(order_code=item['order_code'],status=4).exists():
+            if  StatementDetail.objects.filter(order_code=item['order_code'],status=3).exists():
                 continue
             data.append({
                 'supplier_id':item['supplier_id'],

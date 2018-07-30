@@ -442,176 +442,177 @@ class StatementDetailExSerializer(StatementDetailSerializer):
 
 class OrderAllQuery:
 
-    @time_consuming
-    def query(supplier=None,status=None,plan_status=None,start_date=None,end_date=None):
-        #订单
-        order_sql= """select \
-                    s.son_order_sn 				as order_code,		\
-                    s.status 					as order_status,	\
-                    s.supplier_id				as supplier_id,		\
-                    s.supplier_name				as supplier_name,	\
-                    s.goods_sn					as goods_sn,		\
-                    s.goods_name				as goods_name,		\
-                    s.model						as model,			\
-                    s.univalent					as price,			\
-                    s.number					as number,			\
-                    s.commission				as commission,		\
-                    substr(s.add_time,1,10)		as order_date,		\
-                    substr(p.add_time,1,10)		as confirm_date,	\
-                    p.status					as status			\
-                        \
-                    from order_detail s    \
-                      inner join order_operation_record p  \
-                          on  s.son_order_sn = p.order_sn"""
-        #方案订单
-        plan_order_sql = """select \
-                            s.plan_order_sn 			as order_code,		\
-                            s.status 					as order_status,	\
-                            s.supplier_id				as supplier_id,		\
-                            s.supplier_name				as supplier_name,	\
-                            s.plan_sn					as goods_sn,	\
-                            s.plan_name					as goods_name,		\
-                            s.sln_type					as model,			\
-                            s.total_money				as price,			\
-                            1							as number,			\
-                            0.0							as commission,		\
-                            substr(s.add_time,1,10)		as order_date,		\
-                            substr(p.add_time,1,10)		as confirm_date,	\
-                            p.status					as status			\
-                                \
-                            from plan_order s    \
-                              inner join order_operation_record p  \
-                                  on  s.plan_order_sn = p.plan_order_sn"""
+	@time_consuming
+	def query(supplier=None,status=None,plan_status=None,start_date=None,end_date=None):
+		#订单
+		order_sql= """select \
+					s.son_order_sn 				as order_code,		\
+					s.status 					as order_status,	\
+					s.supplier_id				as supplier_id,		\
+					s.supplier_name				as supplier_name,	\
+					s.goods_sn					as goods_sn,		\
+					s.goods_name				as goods_name,		\
+					s.model						as model,			\
+					s.univalent					as price,			\
+					s.number					as number,			\
+					s.commission				as commission,		\
+					substr(s.add_time,1,10)		as order_date,		\
+					substr(p.add_time,1,10)		as confirm_date,	\
+					p.status					as status			\
+						\
+					from order_detail s    \
+					  inner join order_operation_record p  \
+						  on  s.son_order_sn = p.order_sn"""
+		#方案订单
+		plan_order_sql = """select \
+							s.plan_order_sn 			as order_code,		\
+							s.status 					as order_status,	\
+							s.supplier_id				as supplier_id,		\
+							s.supplier_name				as supplier_name,	\
+							s.plan_sn					as goods_sn,	\
+							s.plan_name					as goods_name,		\
+							s.sln_type					as model,			\
+							s.total_money				as price,			\
+							1							as number,			\
+							0.0							as commission,		\
+							substr(s.add_time,1,10)		as order_date,		\
+							substr(p.add_time,1,10)		as confirm_date,	\
+							p.status					as status			\
+								\
+							from plan_order s    \
+							  inner join order_operation_record p  \
+								  on  s.plan_order_sn = p.plan_order_sn"""
 
-        if supplier:
-            order_sql="%s and s.supplier_id in %s"%(order_sql,list_to_query_format(supplier))
-            plan_order_sql = "%s and s.supplier_id in %s" % (plan_order_sql, list_to_query_format(supplier))
-        if status:
-            order_sql="%s and p.status in %s" % (order_sql, list_to_query_format(status))
-        if plan_status:
-            plan_order_sql = "%s and p.status in %s" % (plan_order_sql, list_to_query_format(plan_status))
-        if start_date and end_date:
-            order_sql = "%s and p.add_time>='%s' and p.add_time<='%s'" % (order_sql, start_date,end_date)
-            plan_order_sql = "%s and p.add_time>='%s' and p.add_time<='%s'" % (plan_order_sql, start_date, end_date)
-        order_data=db('order').query_todict(order_sql)
-        plan_order_data=db('plan_order').query_todict(plan_order_sql)
+		if supplier:
+			order_sql="%s and s.supplier_id in %s"%(order_sql,list_to_query_format(supplier))
+			plan_order_sql = "%s and s.supplier_id in %s" % (plan_order_sql, list_to_query_format(supplier))
+		if status:
+			order_sql="%s and p.status in %s" % (order_sql, list_to_query_format(status))
+		if plan_status:
+			plan_order_sql = "%s and p.status in %s" % (plan_order_sql, list_to_query_format(plan_status))
+		if start_date and end_date:
+			order_sql = "%s and p.add_time>='%s' and p.add_time<='%s'" % (order_sql, start_date,end_date)
+			plan_order_sql = "%s and p.add_time>='%s' and p.add_time<='%s'" % (plan_order_sql, start_date, end_date)
+		order_data=db('order').query_todict(order_sql)
+		plan_order_data=db('plan_order').query_todict(plan_order_sql)
 
-        return order_data+plan_order_data
+		return order_data+plan_order_data
 
-    @time_consuming
-    def query_statement(supplier=None, status=None, plan_status=None, start_date=None, end_date=None):
-        # 订单
-        order_sql = """select \
-                    s.son_order_sn 				as order_code,		\
-                    s.status 					as order_status,	\
-                    s.supplier_id				as supplier_id,		\
-                    s.supplier_name				as supplier_name,	\
-                    s.goods_sn					as goods_sn,		\
-                    s.goods_name				as goods_name,		\
-                    s.model						as model,			\
-                    s.univalent					as price,			\
-                    s.number					as `number`,			\
-                    s.commission				as commission,		\
-                    substr(s.add_time,1,10)		as order_date,		\
-                    substr(p.add_time,1,10)		as confirm_date,	\
-                    p.status					as status	,		\
-                    case p.status     \
-                        when 14 then (select returns_sn from order_returns where order_sn=s.son_order_sn limit 1) \
-                        else s.son_order_sn end as use_code \
-                    from order_detail s    \
-                      inner join order_operation_record p  \
-                          on  s.son_order_sn = p.order_sn"""
-        # 方案订单
-        plan_order_sql = """select \
-                            s.plan_order_sn 			as order_code,		\
-                            s.status 					as order_status,	\
-                            s.supplier_id				as supplier_id,		\
-                            s.supplier_name				as supplier_name,	\
-                            s.plan_sn					as goods_sn,	\
-                            s.plan_name					as goods_name,		\
-                            s.sln_type					as model,			\
-                            s.total_money				as price,			\
-                            1							as number,			\
-                            0.0							as commission,		\
-                            substr(s.add_time,1,10)		as order_date,		\
-                            substr(p.add_time,1,10)		as confirm_date,	\
-                            p.status					as status	,		\
-                             s.plan_order_sn 			as use_code		\
-                            from plan_order s    \
-                              inner join order_operation_record p  \
-                                  on  s.plan_order_sn = p.plan_order_sn"""
+	@time_consuming
+	def query_statement(supplier=None, status=None, plan_status=None, start_date=None, end_date=None):
+		# 订单
+		order_sql = """select \
+					s.son_order_sn 				as order_code,		\
+					s.status 					as order_status,	\
+					s.supplier_id				as supplier_id,		\
+					s.supplier_name				as supplier_name,	\
+					s.goods_sn					as goods_sn,		\
+					s.goods_name				as goods_name,		\
+					s.model						as model,			\
+					s.univalent					as price,			\
+					s.number					as `number`,			\
+					s.commission				as commission,		\
+					substr(s.add_time,1,10)		as order_date,		\
+					substr(p.add_time,1,10)		as confirm_date,	\
+					p.status					as status	,		\
+					case p.status     \
+						when 14 then (select returns_sn from order_returns where order_sn=s.son_order_sn limit 1) \
+						else s.son_order_sn end as use_code \
+					from order_detail s    \
+					  inner join order_operation_record p  \
+						  on  s.son_order_sn = p.order_sn"""
+		# 方案订单
+		plan_order_sql = """select \
+							s.plan_order_sn 			as order_code,		\
+							s.status 					as order_status,	\
+							s.supplier_id				as supplier_id,		\
+							s.supplier_name				as supplier_name,	\
+							s.plan_sn					as goods_sn,	\
+							s.plan_name					as goods_name,		\
+							s.sln_type					as model,			\
+							s.total_money				as price,			\
+							1							as number,			\
+							0.0							as commission,		\
+							substr(s.add_time,1,10)		as order_date,		\
+							substr(p.add_time,1,10)		as confirm_date,	\
+							p.status					as status	,		\
+							 s.plan_order_sn 			as use_code		\
+							from plan_order s    \
+							  inner join order_operation_record p  \
+								  on  s.plan_order_sn = p.plan_order_sn"""
 
-        if supplier:
-            order_sql = "%s and s.supplier_id in %s" % (order_sql, list_to_query_format(supplier))
-            plan_order_sql = "%s and s.supplier_id in %s" % (plan_order_sql, list_to_query_format(supplier))
-        if status:
-            order_sql = "%s and p.status in %s" % (order_sql, list_to_query_format(status))
-        if plan_status:
-            plan_order_sql = "%s and p.status in %s" % (plan_order_sql, list_to_query_format(plan_status))
-        if start_date and end_date:
-            order_sql = "%s and p.add_time>='%s' and p.add_time<='%s'" % (order_sql, start_date, end_date)
-            plan_order_sql = "%s and p.add_time>='%s' and p.add_time<='%s'" % (plan_order_sql, start_date, end_date)
-        order_data = db('order').query_todict(order_sql)
-        plan_order_data = db('plan_order').query_todict(plan_order_sql)
+		if supplier:
+			order_sql = "%s and s.supplier_id in %s" % (order_sql, list_to_query_format(supplier))
+			plan_order_sql = "%s and s.supplier_id in %s" % (plan_order_sql, list_to_query_format(supplier))
+		if status:
+			order_sql = "%s and p.status in %s" % (order_sql, list_to_query_format(status))
+		if plan_status:
+			plan_order_sql = "%s and p.status in %s" % (plan_order_sql, list_to_query_format(plan_status))
+		if start_date and end_date:
+			order_sql = "%s and p.add_time>='%s' and p.add_time<='%s'" % (order_sql, start_date, end_date)
+			plan_order_sql = "%s and p.add_time>='%s' and p.add_time<='%s'" % (plan_order_sql, start_date, end_date)
+		order_data = db('order').query_todict(order_sql)
+		plan_order_data = db('plan_order').query_todict(plan_order_sql)
 
-        orders=[]
-        for item in order_data:
-            orders.append(item['use_code'])
-        for item in plan_order_data:
-            orders.append(item['use_code'])
-        orders_len = len(orders)
-        last_limit=start_date[:7].replace('-', '')
-        obj=StatementDetail.objects.raw("""
-                select t1.*
-                from statementdetail as t1
-                inner join statement as t2 on t1.code=t2.code
-                where t1.use_code in %s and t2.limit=%s
-        """,[orders,last_limit])
-        for item in obj:
-            orders.remove(item.use_code)
-        if orders_len > len(orders):
-            tmp_order_data=[]
-            for obj in  order_data:
-                is_Flag=False
-                for item in orders:
-                    if obj['use_code']==item:
-                        is_Flag=True
-                        break
-                if is_Flag:
-                    tmp_order_data.append(obj)
-            tmp_plan_order_data=[]
-            for obj in  plan_order_data:
-                is_Flag=False
-                for item in orders:
-                    if obj['use_code']==item:
-                        is_Flag=True
-                        break
-                if is_Flag:
-                    tmp_plan_order_data.append(obj)
-            order_data=tmp_order_data
-            plan_order_data=tmp_plan_order_data
+		if len(order_data) or len(plan_order_data):
+			orders=[]
+			for item in order_data:
+				orders.append(item['use_code'])
+			for item in plan_order_data:
+				orders.append(item['use_code'])
+			orders_len = len(orders)
+			last_limit=start_date[:7].replace('-', '')
+			obj=StatementDetail.objects.raw("""
+					select t1.*
+					from statementdetail as t1
+					inner join statement as t2 on t1.code=t2.code
+					where t1.use_code in %s and t2.limit=%s
+			""",[orders,last_limit])
+			for item in obj:
+				orders.remove(item.use_code)
+			if orders_len > len(orders):
+				tmp_order_data=[]
+				for obj in  order_data:
+					is_Flag=False
+					for item in orders:
+						if obj['use_code']==item:
+							is_Flag=True
+							break
+					if is_Flag:
+						tmp_order_data.append(obj)
+				tmp_plan_order_data=[]
+				for obj in  plan_order_data:
+					is_Flag=False
+					for item in orders:
+						if obj['use_code']==item:
+							is_Flag=True
+							break
+					if is_Flag:
+						tmp_plan_order_data.append(obj)
+				order_data=tmp_order_data
+				plan_order_data=tmp_plan_order_data
 
-        return order_data + plan_order_data
+		return order_data + plan_order_data
 
 
-    def get_supplier(supplier=[]):
-        """
-            获取已经下订单的供应商
-        """
-        tmp_supplier=[]
-        if not supplier:
-            objs = OrderDetail.objects.using('order').filter()
-            if objs.exists():
-                for obj in objs:
-                    tmp_supplier.append(obj.supplier_id)
-            objs = PlanOrder.objects.using('plan_order').filter()
-            if not objs.exists():
-                return list(set(tmp_supplier))
-            else:
-                for obj in objs:
-                    tmp_supplier.append(obj.supplier_id)
-            tmp_supplier = list(set(tmp_supplier))
-        return tmp_supplier
+	def get_supplier(supplier=[]):
+		"""
+			获取已经下订单的供应商
+		"""
+		tmp_supplier=[]
+		if not supplier:
+			objs = OrderDetail.objects.using('order').filter()
+			if objs.exists():
+				for obj in objs:
+					tmp_supplier.append(obj.supplier_id)
+			objs = PlanOrder.objects.using('plan_order').filter()
+			if not objs.exists():
+				return list(set(tmp_supplier))
+			else:
+				for obj in objs:
+					tmp_supplier.append(obj.supplier_id)
+			tmp_supplier = list(set(tmp_supplier))
+		return tmp_supplier
 
 class PayTranListSerializer(serializers.Serializer):
 	guest_company_name=serializers.SerializerMethodField()

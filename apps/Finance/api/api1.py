@@ -858,7 +858,7 @@ class StatementDetaiExlViewset(GenericViewSetCustom):
     @list_route(methods=['GET'])
     @Core_connector(pagination=True)
     def statement(self, request, *args, **kwargs):
-            return {"data":self.get_serializer(StatementDetail.objects.filter(status=4).order_by('-add_time'), many=True).data}
+            return {"data":self.get_serializer(StatementDetail.objects.filter(status=3).order_by('-add_time'), many=True).data}
 
     @list_route(methods=['GET'])
     @Core_connector(pagination=True)
@@ -874,7 +874,7 @@ class StatementDetaiExlViewset(GenericViewSetCustom):
         data=[]
         from decimal import Decimal
         for item in statement_list:
-            if  StatementDetail.objects.filter(order_code=item['order_code'],status=4).exists():
+            if  StatementDetail.objects.filter(order_code=item['order_code'],status=3).exists():
                 continue
             data.append({
                 'supplier_id':item['supplier_id'],
