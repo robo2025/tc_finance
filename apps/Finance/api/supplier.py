@@ -91,7 +91,7 @@ class StatementSupDetaiExlViewset(GenericViewSetCustom):
                 'supplier_id':item['supplier_id'],
                 'supplier_name':item['supplier_name'],
                 'order_date':item['order_date'],
-                'type':'订单' if item['status']==7 else '退款单',
+                'type':'订单' if item['status']==7 else '退货单',
                 'order_code' : item['order_code'],
                 'goods_name' : item['goods_name'],
                 'model':item['model'],
