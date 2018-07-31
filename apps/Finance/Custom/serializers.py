@@ -439,6 +439,7 @@ class StatementDetailSerializer(serializers.ModelSerializer):
 class StatementDetailExSerializer(serializers.Serializer):
 
 	limit=serializers.SerializerMethodField()
+	limit_filter=serializers.SerializerMethodField()
 	term=serializers.SerializerMethodField()
 	supplier_id=serializers.CharField()
 	supplier_name=serializers.CharField()
@@ -456,6 +457,9 @@ class StatementDetailExSerializer(serializers.Serializer):
 
 	def get_limit(self,obj):
 		return "{}年{}月".format(str(obj.limit)[:4],str(obj.limit)[4:])
+
+	def get_limit_filter(self,obj):
+		return "{}-{}".format(str(obj.limit)[:4], str(obj.limit)[4:])
 
 	def get_term(self,obj):
 		start_date, end_date = Get_mse_day(int(str(obj.limit)[:4]),int(str(obj.limit)[4:]))

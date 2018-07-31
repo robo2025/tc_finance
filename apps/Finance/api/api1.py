@@ -848,33 +848,37 @@ class TranListViewset(GenericViewSetCustom):
 # 报表-对账查询
 class StatementDetaiExlViewset(GenericViewSetCustom):
 	authentication_classes = [AdminUserAuthentication]
-	filters_custom = [
-		{'key': "supplier_id"},
-		{'key': "order_code"},
-		{'key': "order_date", 'condition': "gte", 'inkey': 'start_dt'},
-		{'key': "order_date", 'condition': "lte", 'inkey': 'end_dt'},
-	]
-
-	def get_serializer_class(self):
-		return StatementDetailExSerializer
 
 	@list_route(methods=['GET'])
 	@Core_connector(pagination=True)
 	def statement(self, request, *args, **kwargs):
+		self.filters_custom = [
+			{'key': "supplier_id"},
+			{'key': "order_code", 'condition': 'like', },
+			{'key': "limit_filter", 'condition': "gte", 'inkey': 'start_dt'},
+			{'key': "limit_filter", 'condition': "lte", 'inkey': 'end_dt'},
+			{'key': "code", 'condition': 'like', },
+		]
 		obj = StatementDetail.objects.raw(
 			"""
-				select t1.id as statementdetail_ptr_id,
-					  t1.*,t2.limit,t2.status as main_status
-				from statementdetail as t1
-				inner join statement as t2 on t1.code=t2.code
-				where t1.status=3 order by t1.add_time desc
-			"""
+                select t1.id as statementdetail_ptr_id,
+                      t1.*,t2.limit,t2.status as main_status
+                from statementdetail as t1
+                inner join statement as t2 on t1.code=t2.code
+                where t1.status=3 order by t1.add_time desc
+            """
 		)
 		return {"data": StatementDetailExSerializer(obj, many=True).data}
 
 	@list_route(methods=['GET'])
 	@Core_connector(pagination=True)
 	def unstatement(self, request, *args, **kwargs):
+		self.filters_custom = [
+			{'key': "supplier_id"},
+			{'key': "order_code", 'condition': 'like', },
+			{'key': "order_date", 'condition': "gte", 'inkey': 'start_dt'},
+			{'key': "order_date", 'condition': "lte", 'inkey': 'end_dt'},
+		]
 		# 获取满足条件订单(含普通订单和方案订单)
 		supplier = OrderAllQuery.get_supplier()
 		DD_params = [supplier]
@@ -920,7 +924,8 @@ class StatementDetaiExlViewset(GenericViewSetCustom):
 				'price': item.price,
 				'number': item.number,
 				'amount': Decimal(0.0) - item.use_pay_total if item.order_code[:2] == 'TH' else item.use_pay_total,
-				'commission': Decimal(0.0) - item.use_commission if item.order_code[:2] == 'TH' else item.use_commission,
+				'commission': Decimal(0.0) - item.use_commission if item.order_code[
+																	:2] == 'TH' else item.use_commission,
 			})
 		return {"data": data}
 #  资源下载

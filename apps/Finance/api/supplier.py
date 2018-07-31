@@ -67,8 +67,8 @@ class StatementSupDetaiExlViewset(GenericViewSetCustom):
         self.filters_custom = [
             {'key': "supplier_id"},
             {'key': "order_code", 'condition': 'like', },
-            {'key': "limit", 'condition': "gte", 'inkey': 'start_dt'},
-            {'key': "limit", 'condition': "lte", 'inkey': 'end_dt'},
+            {'key': "limit_filter", 'condition': "gte", 'inkey': 'start_dt'},
+            {'key': "limit_filter", 'condition': "lte", 'inkey': 'end_dt'},
             {'key': "code", 'condition': 'like', },
         ]
         obj=StatementDetail.objects.raw(
