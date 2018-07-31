@@ -433,12 +433,52 @@ class StatementDetailSerializer(serializers.ModelSerializer):
 		fields = ('code','date','confirm_date','typename','order_code',
 				  	'goods_name','model','price','number','amount','commission')
 
-class StatementDetailExSerializer(StatementDetailSerializer):
+class StatementDetailExSerializer(serializers.Serializer):
 
-	class Meta:
-		model=StatementDetail
-		fields = ('supplier_id','supplier_name','code','date','typename','order_code',
-				  	'goods_name','model','price','number','amount','commission','status')
+	limit=serializers.SerializerMethodField()
+	term=serializers.SerializerMethodField()
+	supplier_id=serializers.CharField()
+	supplier_name=serializers.CharField()
+	code=serializers.CharField()
+	date=serializers.SerializerMethodField()
+	typename=serializers.SerializerMethodField()
+	order_code=serializers.SerializerMethodField()
+	goods_name=serializers.CharField()
+	model=serializers.CharField()
+	price=serializers.SerializerMethodField()
+	number=serializers.IntegerField()
+	amount=serializers.SerializerMethodField()
+	commission=serializers.SerializerMethodField()
+	status=serializers.SerializerMethodField()
+
+	def get_limit(self,obj):
+		return "{}年{}月".format(str(obj.limit)[:4],str(obj.limit)[4:])
+
+	def get_term(self,obj):
+		start_date, end_date = Get_mse_day(int(str(obj.limit)[:4]),int(str(obj.limit)[4:]))
+		return '{}年{}月{}日-{}年{}月{}日'.format(
+			start_date[:4],start_date[5:7],start_date[8:],
+			end_date[:4], end_date[5:7], end_date[8:],
+		)
+	def get_date(self,obj):
+		return obj.order_date if obj.use_code[:2]!='TH' else obj.refund_date
+
+	def order_code(self,obj):
+		return obj.use_code
+
+	def get_price(self,obj):
+		return obj.price
+	def get_typename(self,obj):
+		return "订单" if obj.use_code[:2]!='TH' else "退货单"
+	def get_number(self,obj):
+		return obj.number if obj.use_code[:2]!='TH'  else obj.refund_number
+	def get_amount(self,obj):
+		return obj.pay_total if obj.use_code[:2]!='TH'  else Decimal(0.0)-obj.refund_amount
+	def get_commission(self,obj):
+		return obj.commission if obj.use_code[:2]!='TH'  else Decimal(0.0)-obj.refund_commission
+	def get_status(self,obj):
+		return obj.main_status
+
 
 class OrderAllQuery:
 
