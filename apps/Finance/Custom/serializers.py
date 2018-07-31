@@ -1125,17 +1125,17 @@ class NoFRceiptSerializer(serializers.Serializer):
 		date=str(obj.order_date if not obj.other_code else obj.refund_date)
 		return '{}年{}月{}日'.format(date[:4],date[6:7],date[9:])
 	def get_filter_date(self,obj):
-		return str(obj.order_date if not obj.other_code else obj.refund_date)
+		return str(obj.order_date) if not obj.use_code[:2]!='TH' else str(obj.refund_date)
 	def get_typename(self,obj):
-		return "订单" if not obj.other_code else "退货单"
+		return "订单" if not obj.use_code[:2]!='TH' else "退货单"
 	def get_amount(self,obj):
-		return obj.pay_total if not obj.other_code else Decimal(0.0)-obj.refund_amount
+		return obj.use_pay_total
 	def get_commission(self,obj):
-		return obj.commission if not obj.other_code else Decimal(0.0)-obj.refund_commission
+		return obj.use_commission
 	def get_ticket_amount(self,obj):
-		return obj.commission if not obj.other_code else Decimal(0.0)-obj.refund_commission
+		return obj.use_commission - obj.ticket_amount if not obj.use_code[:2]!='TH' else Decimal(0,0) - abs(obj.use_commission) - abs(obj.ticket_amount)
 	def get_tot_amount(self,obj):
-		return 0.0
+		return obj.ticket_amount
 	def get_order_code(self,obj):
 		return obj.use_code
 	
