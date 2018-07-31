@@ -409,7 +409,7 @@ class StatementSerializer(serializers.ModelSerializer):
 
 class StatementDetailSerializer(serializers.ModelSerializer):
 
-	typename=serializers.SerializerMethodField()
+	type=serializers.SerializerMethodField()
 	order_code = serializers.SerializerMethodField()
 	number=serializers.SerializerMethodField()
 	amount=serializers.SerializerMethodField()
@@ -440,8 +440,8 @@ class StatementDetailExSerializer(serializers.Serializer):
 	supplier_id=serializers.CharField()
 	supplier_name=serializers.CharField()
 	code=serializers.CharField()
-	date=serializers.SerializerMethodField()
-	typename=serializers.SerializerMethodField()
+	order_date=serializers.CharField()
+	type=serializers.SerializerMethodField()
 	order_code=serializers.SerializerMethodField()
 	goods_name=serializers.CharField()
 	model=serializers.CharField()
@@ -460,15 +460,15 @@ class StatementDetailExSerializer(serializers.Serializer):
 			start_date[:4],start_date[5:7],start_date[8:],
 			end_date[:4], end_date[5:7], end_date[8:],
 		)
-	def get_date(self,obj):
+	def get_order_date(self,obj):
 		return obj.order_date if obj.use_code[:2]!='TH' else obj.refund_date
 
-	def order_code(self,obj):
+	def get_order_code(self,obj):
 		return obj.use_code
 
 	def get_price(self,obj):
 		return obj.price
-	def get_typename(self,obj):
+	def get_type(self,obj):
 		return "订单" if obj.use_code[:2]!='TH' else "退货单"
 	def get_number(self,obj):
 		return obj.number if obj.use_code[:2]!='TH'  else obj.refund_number

@@ -14,7 +14,7 @@ from apps.Finance.utils import get_orders_obj
 # 对账单
 class StatementSupViewset(ListModelMixinCustom,GenericViewSetCustom):
 
-    #authentication_classes = [SupplierAuthentication]
+    authentication_classes = [SupplierAuthentication]
     filters_custom =[
         {'key': "limit", 'condition': "gte", 'inkey': 'start_ym' ,'func' :lambda x :x.replace('-' ,'')},
         {'key': "limit", 'condition': "lte", 'inkey': 'end_ym' ,'func' :lambda x :x.replace('-' ,'')},
@@ -60,32 +60,37 @@ class StatementSupViewset(ListModelMixinCustom,GenericViewSetCustom):
 # 报表-对账查询
 class StatementSupDetaiExlViewset(GenericViewSetCustom):
     # authentication_classes = [SupplierAuthentication]
-    filters_custom = [
-        {'key': "supplier_id"},
-        {'key': "order_code"},
-        {'key': "order_date", 'condition': "gte", 'inkey': 'start_dt'},
-        {'key': "order_date", 'condition': "lte", 'inkey': 'end_dt'},
-    ]
-    def get_serializer_class(self):
-        return StatementDetailExSerializer
 
     @list_route(methods=['GET'])
     @Core_connector(pagination=True)
     def statement(self, request, *args, **kwargs):
-            obj=StatementDetail.objects.raw(
-                """
-                    select t1.id as statementdetail_ptr_id,
-                          t1.*,t2.limit,t2.status as main_status
-                    from statementdetail as t1
-                    inner join statement as t2 on t1.code=t2.code
-                    where t1.status=3 order by t1.add_time desc
-                """
-            )
-            return {"data":StatementDetailExSerializer(obj, many=True).data}
+        self.filters_custom = [
+            {'key': "supplier_id"},
+            {'key': "order_code", 'condition': 'like', },
+            {'key': "limit", 'condition': "gte", 'inkey': 'start_dt'},
+            {'key': "limit", 'condition': "lte", 'inkey': 'end_dt'},
+            {'key': "code", 'condition': 'like', },
+        ]
+        obj=StatementDetail.objects.raw(
+            """
+                select t1.id as statementdetail_ptr_id,
+                      t1.*,t2.limit,t2.status as main_status
+                from statementdetail as t1
+                inner join statement as t2 on t1.code=t2.code
+                where t1.status=3 order by t1.add_time desc
+            """
+        )
+        return {"data":StatementDetailExSerializer(obj, many=True).data}
 
     @list_route(methods=['GET'])
     @Core_connector(pagination=True)
     def unstatement(self, request, *args, **kwargs):
+        self.filters_custom = [
+            {'key': "supplier_id"},
+            {'key': "order_code",'condition':'like',},
+            {'key': "order_date", 'condition': "gte", 'inkey': 'start_dt'},
+            {'key': "order_date", 'condition': "lte", 'inkey': 'end_dt'},
+        ]
         # 获取满足条件订单(含普通订单和方案订单)
         supplier=OrderAllQuery.get_supplier()
         DD_params=[supplier]

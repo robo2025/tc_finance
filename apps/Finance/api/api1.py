@@ -847,7 +847,7 @@ class TranListViewset(GenericViewSetCustom):
 
 # 报表-对账查询
 class StatementDetaiExlViewset(GenericViewSetCustom):
-	# authentication_classes = [AdminUserAuthentication]
+	authentication_classes = [AdminUserAuthentication]
 	filters_custom = [
 		{'key': "supplier_id"},
 		{'key': "order_code"},
