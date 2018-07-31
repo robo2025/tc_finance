@@ -1126,13 +1126,21 @@ class NoFRceiptSerializer(serializers.Serializer):
 	commission=serializers.SerializerMethodField()
 	ticket_amount=serializers.SerializerMethodField()
 	tot_amount=serializers.SerializerMethodField()
+	term=serializers.SerializerMethodField()
 
+
+	def get_term(self,obj):
+		start_date, end_date = Get_mse_day(int(str(obj.limit)[:4]),int(str(obj.limit)[4:]))
+		return '{}年{}月{}日-{}年{}月{}日'.format(
+			start_date[:4],start_date[5:7],start_date[8:],
+			end_date[:4], end_date[5:7], end_date[8:],
+		)
 	def get_limit(self,obj):
 		year=str(obj.limit)[:4]
 		month=str(obj.limit)[5:]
 		return "{}年{}月".format(year,month)
 	def get_date(self,obj):
-		date=str(obj.order_date) if obj.use_code[:2]!='TH' else obj.refund_date
+		date=str(obj.order_date) if obj.use_code[:2]!='TH' else str(obj.refund_date)
 		return '{}年{}月{}日'.format(date[:4],date[6:7],date[9:])
 	def get_filter_date(self,obj):
 		return str(obj.order_date) if obj.use_code[:2]!='TH' else str(obj.refund_date)
@@ -1146,10 +1154,13 @@ class NoFRceiptSerializer(serializers.Serializer):
 		return obj.ticket_amount
 
 	def get_tot_amount(self,obj):
-		return obj.use_commission - obj.ticket_amount if obj.use_code[:2]!='TH' else Decimal(0,0) - abs(obj.use_commission) - abs(obj.ticket_amount)
+		if obj.use_code[:2] != 'TH' :
+			return obj.use_commission - obj.ticket_amount
+		else :
+			return Decimal(0.0) - (abs(obj.use_commission) - abs(obj.ticket_amount))
 	def get_order_code(self,obj):
 		return obj.use_code
-	
+
 class YesFRceiptSerializer(NoFRceiptSerializer):
 	receipt_sn=serializers.CharField()
 	receipt_no=serializers.CharField()

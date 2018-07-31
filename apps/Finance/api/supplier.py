@@ -6,10 +6,10 @@ from auth.authentication import SupplierAuthentication
 from utils.exceptions import PubErrorCustom
 
 from apps.Finance.Custom.mixins import (ListModelMixinCustom, GenericViewSetCustom)
-from apps.Finance.Custom.serializers import StatementSerializer,StatementDetailSerializer,OrderAllQuery,StatementDetailExSerializer
+from apps.Finance.Custom.serializers import StatementSerializer,StatementDetailSerializer,OrderAllQuery,StatementDetailExSerializer,NoFRceiptSerializer,YesFRceiptSerializer
 from apps.Finance.models import Statement,StatementDetail
 
-from apps.Finance.utils import get_orders_obj
+from apps.Finance.utils import get_orders_obj,noticket_query,yesticket_query
 
 # 对账单
 class StatementSupViewset(ListModelMixinCustom,GenericViewSetCustom):
@@ -139,3 +139,55 @@ class StatementSupDetaiExlViewset(GenericViewSetCustom):
                  'commission':Decimal(0.0) - item.use_commission if item.order_code[:2]=='TH' else item.use_commission,
             })
         return {"data":data}
+
+class CommissionSupTicket(GenericViewSetCustom):
+    authentication_classes = [SupplierAuthentication]
+
+    @Core_connector(pagination=True)
+    def list(self,request):
+        is_type = self.request.query_params.get('is_type', '3')
+        if str(is_type) != '1' and str(is_type) != '2':
+            raise PubErrorCustom("is_type有误！")
+
+        where_sql = str()
+        params = list()
+        code = self.request.query_params.get('code', None)
+        supplier_id = self.request.query_params.get('supplier_id', None)
+        start_dt = self.request.query_params.get('start_dt', None)
+        end_dt = self.request.query_params.get('end_dt', None)
+        order_code = self.request.query_params.get('order_code', None)
+        limit = self.request.query_params.get('ym', None)
+        start_limit = self.request.query_params.get('start_ym', None)
+        end_limit = self.request.query_params.get('end_ym', None)
+        if code:
+            where_sql = "{} and LOCATE(%s,t2.code)>0".format(where_sql)
+            params.append(code)
+        if order_code:
+            where_sql = "{} and LOCATE(%s,t1.use_code)>0".format(where_sql)
+            params.append(order_code)
+        if limit :
+            limit=limit.replace('-','')
+            where_sql = "{} and t2.limit=%s".format(where_sql)
+            params.append(limit)
+        if supplier_id and str(supplier_id) != 'all' and str(supplier_id) != '0':
+            where_sql = "{} and t2.supplier_id = %s".format(where_sql)
+            params.append(supplier_id)
+        if start_dt and end_dt and end_dt >= start_dt:
+            where_sql = "{} and ( (substr(t1.use_code,1,2)='FA' and t1.refund_date >= %s  and t1.refund_date <= %s ) or  \
+                           (substr(t1.use_code,1,2)!='FA' and t1.order_date >= %s  and t1.order_date <= %s )  )".format(
+                where_sql)
+            params.append(start_dt)
+            params.append(end_dt)
+            params.append(start_dt)
+            params.append(end_dt)
+        if start_limit and end_limit and end_limit >= start_limit:
+            start_limit=start_limit.replace('-','')
+            end_limit=end_limit.replace('-','')
+            where_sql = "{} and t2.limit >=%s and t2.limit <=%s ".format(where_sql)
+            params.append(start_limit)
+            params.append(end_limit)
+
+        if str(is_type)=='1':
+             return {'data': NoFRceiptSerializer(noticket_query(where_sql=where_sql,params=params), many=True).data}
+        elif str(is_type)=='2':
+            return {'data': YesFRceiptSerializer(yesticket_query(where_sql=where_sql,params=params), many=True).data}
