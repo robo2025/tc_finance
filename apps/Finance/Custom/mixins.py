@@ -5,7 +5,6 @@ from rest_framework import (viewsets,mixins)
 
 from core.decorator.response import Core_connector
 
-from ..Custom.pagination import BasePaginationCustom
 from ..Custom.filters import BaseCustomFilter
 
 class ListModelMixinCustom(mixins.ListModelMixin):
@@ -57,7 +56,6 @@ class GenericViewSetCustom(viewsets.GenericViewSet):
     """
     filter_custom_class = BaseCustomFilter
     filters_custom=None
-    pagination_class = BasePaginationCustom
 
     def get_paginated_response(self, data,request):
         """
