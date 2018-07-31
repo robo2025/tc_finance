@@ -1,5 +1,7 @@
 
-from decimal import Decimal
+from decimal import Decimal,getcontext
+
+getcontext().prec = 2
 
 from rest_framework import serializers
 
@@ -1122,20 +1124,21 @@ class NoFRceiptSerializer(serializers.Serializer):
 		month=str(obj.limit)[5:]
 		return "{}年{}月".format(year,month)
 	def get_date(self,obj):
-		date=str(obj.order_date if not obj.other_code else obj.refund_date)
+		date=str(obj.order_date) if obj.use_code[:2]!='TH' else obj.refund_date
 		return '{}年{}月{}日'.format(date[:4],date[6:7],date[9:])
 	def get_filter_date(self,obj):
-		return str(obj.order_date) if not obj.use_code[:2]!='TH' else str(obj.refund_date)
+		return str(obj.order_date) if obj.use_code[:2]!='TH' else str(obj.refund_date)
 	def get_typename(self,obj):
-		return "订单" if not obj.use_code[:2]!='TH' else "退货单"
+		return "订单" if obj.use_code[:2]!='TH' else "退货单"
 	def get_amount(self,obj):
 		return obj.use_pay_total
 	def get_commission(self,obj):
 		return obj.use_commission
 	def get_ticket_amount(self,obj):
-		return obj.use_commission - obj.ticket_amount if not obj.use_code[:2]!='TH' else Decimal(0,0) - abs(obj.use_commission) - abs(obj.ticket_amount)
-	def get_tot_amount(self,obj):
 		return obj.ticket_amount
+
+	def get_tot_amount(self,obj):
+		return obj.use_commission - obj.ticket_amount if obj.use_code[:2]!='TH' else Decimal(0,0) - abs(obj.use_commission) - abs(obj.ticket_amount)
 	def get_order_code(self,obj):
 		return obj.use_code
 	

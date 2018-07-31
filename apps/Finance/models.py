@@ -167,9 +167,18 @@ class StatementDetail(models.Model):
 	add_time = models.DateTimeField(default=timezone.now, verbose_name='添加时间')
 	use_code=models.CharField(max_length=32,verbose_name='订单号/退款单号/方案订单号',default='')
 	limit = None
-	receipt = None
 	unit = None
 	rest_type = None
+
+	tax_number=None
+	title=None
+	company_address=None
+	telephone=None
+	bank=None
+	account=None
+	receipt_type=None
+	guest_company_name=None
+	order_time = None
 
 	class Meta:
 		verbose_name = '对账单详情'

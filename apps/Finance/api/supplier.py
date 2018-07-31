@@ -59,7 +59,7 @@ class StatementSupViewset(ListModelMixinCustom,GenericViewSetCustom):
 
 # 报表-对账查询
 class StatementSupDetaiExlViewset(GenericViewSetCustom):
-    # authentication_classes = [SupplierAuthentication]
+    authentication_classes = [SupplierAuthentication]
 
     @list_route(methods=['GET'])
     @Core_connector(pagination=True)
