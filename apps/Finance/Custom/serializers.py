@@ -411,29 +411,30 @@ class StatementSerializer(serializers.ModelSerializer):
 
 class StatementDetailSerializer(serializers.ModelSerializer):
 
-	type=serializers.SerializerMethodField()
-	order_code = serializers.SerializerMethodField()
-	number=serializers.SerializerMethodField()
-	amount=serializers.SerializerMethodField()
-	commission=serializers.SerializerMethodField()
-	date=serializers.SerializerMethodField()
+    typename=serializers.SerializerMethodField()
+    order_code = serializers.SerializerMethodField()
+    number=serializers.SerializerMethodField()
+    amount=serializers.SerializerMethodField()
+    commission=serializers.SerializerMethodField()
+    date=serializers.SerializerMethodField()
 
-	def get_typename(self,obj):
-		return "订单" if not obj.other_code else "退货单"
-	def get_number(self,obj):
-		return obj.number if not obj.other_code else obj.refund_number
-	def get_amount(self,obj):
-		return obj.pay_total if not obj.other_code else Decimal(0.0)-obj.refund_amount
-	def get_commission(self,obj):
-		return obj.commission if not obj.other_code else Decimal(0.0)-obj.refund_commission
-	def get_order_code(self,obj):
-		return obj.order_code if not obj.other_code else obj.other_code
-	def get_date(self,obj):
-		return obj.order_date if not obj.other_code else obj.refund_date
-	class Meta:
-		model=StatementDetail
-		fields = ('code','date','confirm_date','typename','order_code',
-				  	'goods_name','model','price','number','amount','commission')
+    def get_typename(self,obj):
+        return "订单" if not obj.other_code else "退货单"
+    def get_number(self,obj):
+        return obj.number if not obj.other_code else obj.refund_number
+    def get_amount(self,obj):
+        return obj.pay_total if not obj.other_code else Decimal(0.0)-obj.refund_amount
+    def get_commission(self,obj):
+        return obj.commission if not obj.other_code else Decimal(0.0)-obj.refund_commission
+    def get_order_code(self,obj):
+        return obj.order_code if not obj.other_code else obj.other_code
+    def get_date(self,obj):
+        return obj.order_date if not obj.other_code else obj.refund_date
+    class Meta:
+        model=StatementDetail
+        fields = ('code','date','confirm_date','typename','order_code',
+                    'goods_name','model','price','number','amount','commission')
+
 
 class StatementDetailExSerializer(serializers.Serializer):
 
