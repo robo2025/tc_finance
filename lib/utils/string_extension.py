@@ -130,6 +130,3 @@ def parse_url(url):
     url = parse.path
     return url.lstrip('/')
 
-
-def custom_abs(n):
-    return n * -1 if n<0 else n
