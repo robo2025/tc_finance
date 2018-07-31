@@ -170,6 +170,10 @@ class StatementDetail(models.Model):
 	unit = None
 	rest_type = None
 
+	use_pay_total=None
+	use_commission=None
+	ticket_amount=None
+
 	tax_number=None
 	title=None
 	company_address=None
@@ -179,6 +183,9 @@ class StatementDetail(models.Model):
 	receipt_type=None
 	guest_company_name=None
 	order_time = None
+
+	receipt_sn = None
+	receipt_no = None
 
 	class Meta:
 		verbose_name = '对账单详情'

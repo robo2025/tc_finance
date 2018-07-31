@@ -1050,6 +1050,11 @@ class FinanceReceiptDetailSerializer(serializers.Serializer):
 		else:
 			return FINReceiptListDetailSerializer(FReceiptListDetail.objects.filter(receipt_sn=obj.receipt_sn), many=True).data
 
+class FinanceReceiptCommissionSerializer(FinanceReceiptDetailSerializer):
+
+	def get_goods_list(self,obj):
+		return FINReceiptListDetailSerializer(FReceiptListDetail.objects.filter(receipt_sn=obj.receipt_sn), many=True).data
+
 class FReceiptListDetailSerializer(serializers.Serializer):
 	receipt_sn = serializers.CharField()
 	order_code = serializers.CharField()
@@ -1144,7 +1149,9 @@ class NoFRceiptSerializer(serializers.Serializer):
 		return obj.use_code
 	
 class YesFRceiptSerializer(NoFRceiptSerializer):
-	
+	receipt_sn=serializers.CharField()
+	receipt_no=serializers.CharField()
+
 	def get_tot_amount(self,obj):
 		return obj.commission1
 
