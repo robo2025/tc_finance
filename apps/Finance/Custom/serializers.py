@@ -1,8 +1,6 @@
 
 from decimal import Decimal,getcontext
 
-getcontext().prec = 2
-
 from rest_framework import serializers
 
 from ..Custom.db import db
