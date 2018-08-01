@@ -49,7 +49,7 @@ class StatementSupViewset(ListModelMixinCustom,GenericViewSetCustom):
         object = Statement.objects.filter(code=code)
         if object.exists():
             for obj in object:
-                assert obj.status == 2, '对账单[%s]状态有误！' % (obj.code)
+                assert obj.status == 4, '对账单[%s]状态有误！' % (obj.code)
                 obj.status = 3
                 obj.save()
                 StatementDetail.objects.filter(code=obj.code).update(status=3)
@@ -70,9 +70,9 @@ class TicketUploadViewset(GenericViewSetCustom):
         statement_queryset=Statement.objects.all()
 
         if is_type and str(is_type)=='1':
-            statement_queryset.filter(img_url__isnull=False)
+            statement_queryset.filter(img_url='')
         elif is_type and str(is_type)=='2':
-            statement_queryset.filter(img_url__isnull=True)
+            statement_queryset.exclude(img_url='')
 
         if start_ym and end_ym and start_ym <= end_ym:
             start_ym=start_ym.replace('-')

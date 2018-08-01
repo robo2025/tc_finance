@@ -369,7 +369,9 @@ class StatementViewset(ModelViewSetCustom):
 				obj.tax_money = obj.confirm_amount * Decimal('0.16')
 				obj.taxfree_money = obj.confirm_amount - obj.tax_money
 				obj.total_money = obj.tax_money + obj.taxfree_money
+				obj.status = 4
 				obj.save()
+				StatementDetail.objects.filter(code=obj.code).update(status=4)
 		else:
 			raise AssertionError("对账单[%s]记录不存在！"%(obj.code))
 		return []
@@ -929,6 +931,7 @@ class StatementDetaiExlViewset(GenericViewSetCustom):
 																	:2] == 'TH' else item.use_commission,
 			})
 		return {"data": data}
+
 #  资源下载
 class MediaExport(GenericViewSetCustom):
     def retrieve(self,request, *args, **kwargs):
