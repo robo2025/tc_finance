@@ -747,13 +747,15 @@ class NoFinanceReceiptSerializer(serializers.Serializer):
 	goods_name=serializers.CharField()
 	model=serializers.CharField()
 	price=serializers.DecimalField(max_digits=18, decimal_places=2)
-	number=serializers.FloatField()
+	number=serializers.SerializerMethodField()
 	amount=serializers.SerializerMethodField()
 	ticket_amount=serializers.SerializerMethodField()
 	ticket_tot=serializers.SerializerMethodField()
 	order_code_tmp=serializers.SerializerMethodField()
 	index=serializers.SerializerMethodField()
 
+	def get_number(self,obj):
+		return obj.show_number
 	def get_date(self,obj):
 		return obj.add_time.date()
 	def get_type(self,obj):
@@ -962,7 +964,7 @@ class FinanceReceiptDetailSerializer1(serializers.Serializer):
 	goods_name=serializers.CharField()
 	model=serializers.CharField()
 	price=serializers.SerializerMethodField()
-	number=serializers.FloatField()
+	number=serializers.SerializerMethodField()
 	tax_number=serializers.SerializerMethodField()
 	ticket_no=serializers.SerializerMethodField()
 	receipt_date=serializers.SerializerMethodField()
@@ -974,6 +976,8 @@ class FinanceReceiptDetailSerializer1(serializers.Serializer):
 	open_receipt_time=serializers.SerializerMethodField()
 	index=serializers.SerializerMethodField()
 
+	def get_number(self,obj):
+		return obj.number
 	def get_price(self,obj):
 		return obj.price
 	def get_tax_number(self,obj):

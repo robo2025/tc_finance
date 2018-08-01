@@ -187,6 +187,8 @@ class StatementDetail(models.Model):
 	receipt_sn = None
 	receipt_no = None
 
+	show_number=None
+
 	class Meta:
 		verbose_name = '对账单详情'
 		verbose_name_plural = verbose_name
