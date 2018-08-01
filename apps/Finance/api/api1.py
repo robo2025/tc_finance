@@ -282,10 +282,10 @@ class RefundOrderViewSet(ModelViewSetCustom):
 class StatementViewset(ModelViewSetCustom):
 	authentication_classes = [AdminUserAuthentication]
 	filters_custom=[
-	    {'key': "limit", 'condition': "gte", 'inkey': 'start_ym','func':lambda x:x.replace('-','')},
-	    {'key': "limit", 'condition': "lte", 'inkey': 'end_ym','func':lambda x:x.replace('-','')},
-	    {'key': "status" ,},
-	    {'key': "supplier_id",'all_query':True},
+		{'key': "limit", 'condition': "gte", 'inkey': 'start_ym','func':lambda x:x.replace('-','')},
+		{'key': "limit", 'condition': "lte", 'inkey': 'end_ym','func':lambda x:x.replace('-','')},
+		{'key': "status" ,},
+		{'key': "supplier_id",'all_query':True},
 	]
 	lookup_field = ("code")
 	def get_queryset(self):
@@ -293,7 +293,7 @@ class StatementViewset(ModelViewSetCustom):
 			return ""
 		else:
 			return Statement.objects.filter().order_by('-add_time')
-	
+
 	def get_serializer_class(self):
 		if self.action == "create":
 			return CreateStatementSerializer
@@ -301,7 +301,7 @@ class StatementViewset(ModelViewSetCustom):
 			return ModiStatementSerializer
 		else:
 			return StatementSerializer
-	
+
 	@Core_connector()
 	def retrieve(self, request, *args, **kwargs):
 		code = kwargs.get('code', '')
@@ -325,14 +325,14 @@ class StatementViewset(ModelViewSetCustom):
 				if obj.status in [3,4]:
 					raise PubErrorCustom("请勿删除已发布的账单！")
 				if obj.status==2:
-				    obj.status=1
-				    obj.save()
-				    StatementDetail.objects.filter(code=obj.code).update(status=1)
+					obj.status=1
+					obj.save()
+					StatementDetail.objects.filter(code=obj.code).update(status=1)
 				else:
 					obj.delete()
 					StatementDetail.objects.filter(code=obj.code).delete()
 		return []
-	
+
 	@list_route(methods=['PUT'])
 	@Core_connector(transaction=True)
 	def release(self, request, *args, **kwargs):
@@ -341,34 +341,35 @@ class StatementViewset(ModelViewSetCustom):
 			raise PubErrorCustom("请求列表空！")
 		objects=Statement.objects.filter(code__in=codes)
 		if objects.exists():
-		    for obj in objects:
-		        assert obj.status==1,'对账单[%s]状态有误！'%(obj.code)
-		        obj.status=2
-		        obj.save()
+			for obj in objects:
+				assert obj.status==1,'对账单[%s]状态有误！'%(obj.code)
+				obj.status=2
+				obj.save()
 		StatementDetail.objects.filter(code__in=codes).update(status=2)
 		return []
-	
+
 	@list_route(methods=['PUT'])
 	@Core_connector(transaction=True)
 	def confirm(self, request, *args, **kwargs):
 		code = request.data.get('code',"")
 		confirm_remark = request.data.get('confirm_remark', "")
 		confirm_amount = Decimal(request.data.get('confirm_amount', 0.0))
-		
+
 		assert code , '请选择对账记录！'
 		assert confirm_amount, '请输入确认金额！'
-		
+
 		object=Statement.objects.filter(code=code)
 		if object.exists():
-		    for obj in object:
-		        assert obj.status==2,'对账单[%s]状态有误！'%(obj.code)
-		        if obj.goods_total < confirm_amount:
-		            raise PubErrorCustom("确认金额大于对账金额！")
-		        obj.status=3
-		        obj.confirm_remark = confirm_remark
-		        obj.confirm_amount = confirm_amount
-		        obj.save()
-		        StatementDetail.objects.filter(code=obj.code).update(status=3)
+			for obj in object:
+				assert obj.status==2,'对账单[%s]状态有误！'%(obj.code)
+				if obj.goods_total < confirm_amount:
+					raise PubErrorCustom("确认金额大于对账金额！")
+				obj.confirm_remark = confirm_remark
+				obj.confirm_amount = confirm_amount
+				obj.tax_money = obj.confirm_amount * Decimal('0.16')
+				obj.taxfree_money = obj.confirm_amount - obj.tax_money
+				obj.total_money = obj.tax_money + obj.taxfree_money
+				obj.save()
 		else:
 			raise AssertionError("对账单[%s]记录不存在！"%(obj.code))
 		return []

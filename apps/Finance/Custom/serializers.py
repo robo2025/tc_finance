@@ -233,134 +233,133 @@ class RefundOrderDetailsSerializer:
 		return return_data
 
 class CreateStatementSerializer(serializers.Serializer):
-    supplier_id=serializers.CharField(default='')
-    ym=serializers.CharField(required=True,max_length=7,min_length=7,error_messages={
-                                "max_length":"对账期间格式有误！",
-                                "min_length": "对账期间格式有误！",
-                                "required": "对账期间空！",
-    })
-    date=serializers.CharField(required=True,max_length=10,min_length=10,error_messages={
-                                "max_length":"对账日期格式有误！",
-                                "min_length": "对账日期格式有误！",
-                                "required": "对账日期空！",
-    })
-    def validate_supplier_id(self, supplier_id):
-        if not supplier_id:
-            raise serializers.ValidationError("供应商空！")
-        try :
-            int(supplier_id)
-        except ValueError :
-            if supplier_id != 'all':
-                raise serializers.ValidationError("供应商格式有误！")
+	supplier_id=serializers.CharField(default='')
+	ym=serializers.CharField(required=True,max_length=7,min_length=7,error_messages={
+								"max_length":"对账期间格式有误！",
+								"min_length": "对账期间格式有误！",
+								"required": "对账期间空！",
+	})
+	date=serializers.CharField(required=True,max_length=10,min_length=10,error_messages={
+								"max_length":"对账日期格式有误！",
+								"min_length": "对账日期格式有误！",
+								"required": "对账日期空！",
+	})
+	def validate_supplier_id(self, supplier_id):
+		if not supplier_id:
+			raise serializers.ValidationError("供应商空！")
+		try :
+			int(supplier_id)
+		except ValueError :
+			if supplier_id != 'all':
+				raise serializers.ValidationError("供应商格式有误！")
 
-        return 0 if supplier_id=='all' else int(supplier_id)
+		return 0 if supplier_id=='all' else int(supplier_id)
 
-    # 对账单详情入库
-    def insert_statementdetail(self,code=None,statement=None, order_return=None):
-        statementdetail = StatementDetail()
-        statementdetail.code = code
-        statementdetail.order_code = statement['order_code']
-        statementdetail.order_status = statement['order_status']
-        statementdetail.goods_sn = statement['goods_sn']
-        statementdetail.goods_name = statement['goods_name']
-        statementdetail.model = statement['model']
-        statementdetail.price = statement['price']
-        statementdetail.number = statement['number']
-        statementdetail.order_date = statement['order_date']
-        statementdetail.confirm_date = statement['confirm_date']
-        statementdetail.supplier_id = statement['supplier_id']
-        statementdetail.supplier_name = statement['supplier_name']
-        if order_return:
-            statementdetail.other_code = order_return.returns_sn
-            statementdetail.refund_amount = statementdetail.price * Decimal(statementdetail.number)
-            statementdetail.refund_number = statementdetail.number
-            statementdetail.refund_commission = statement['commission']
-            statementdetail.refund_date = order_return.add_time.date()
-            statementdetail.use_code=order_return.returns_sn
-        else:
-            statementdetail.pay_total = statementdetail.price * Decimal(statementdetail.number)
-            statementdetail.commission = statement['commission']
-            statementdetail.use_code=statement['order_code']
-        statementdetail.save()
-        return statementdetail
+	# 对账单详情入库
+	def insert_statementdetail(self,code=None,statement=None, order_return=None):
+		statementdetail = StatementDetail()
+		statementdetail.code = code
+		statementdetail.order_code = statement['order_code']
+		statementdetail.order_status = statement['order_status']
+		statementdetail.goods_sn = statement['goods_sn']
+		statementdetail.goods_name = statement['goods_name']
+		statementdetail.model = statement['model']
+		statementdetail.price = statement['price']
+		statementdetail.number = statement['number']
+		statementdetail.order_date = statement['order_date']
+		statementdetail.confirm_date = statement['confirm_date']
+		statementdetail.supplier_id = statement['supplier_id']
+		statementdetail.supplier_name = statement['supplier_name']
+		if order_return:
+			statementdetail.other_code = order_return.returns_sn
+			statementdetail.refund_amount = statementdetail.price * Decimal(statementdetail.number)
+			statementdetail.refund_number = statementdetail.number
+			statementdetail.refund_commission = statement['commission']
+			statementdetail.refund_date = order_return.add_time.date()
+			statementdetail.use_code=order_return.returns_sn
+		else:
+			statementdetail.pay_total = statementdetail.price * Decimal(statementdetail.number)
+			statementdetail.commission = statement['commission']
+			statementdetail.use_code=statement['order_code']
+		statementdetail.save()
+		return statementdetail
 
-    def create(self,validated_data):
-        supplier_id=self.validated_data['supplier_id']
-        limit=self.validated_data['ym'].replace('-','')
-        start_date,end_date=Get_mse_day(int(limit[:4]),int(limit[4:]))
-        date=self.validated_data['date']
+	def create(self,validated_data):
+		supplier_id=self.validated_data['supplier_id']
+		limit=self.validated_data['ym'].replace('-','')
+		start_date,end_date=Get_mse_day(int(limit[:4]),int(limit[4:]))
+		date=self.validated_data['date']
 
-        last_start_date=str(month_sub(datet=string_toDatetime(start_date),m=1))
+		last_start_date=str(month_sub(datet=string_toDatetime(start_date),m=1))
 
-        supplier=[]
-        if not supplier_id:
-            ods=OrderDetail.objects.using('order').filter()
-            if ods.exists():
-                for od in ods:
-                    supplier.append(od.supplier_id)
-            ods=PlanOrder.objects.using('plan_order').filter()
-            if ods.exists():
-                for od in ods:
-                    supplier.append(od.supplier_id)
-            supplier=list(set(supplier))
-        else:
-            supplier.append(supplier_id)
+		supplier=[]
+		if not supplier_id:
+			ods=OrderDetail.objects.using('order').filter()
+			if ods.exists():
+				for od in ods:
+					supplier.append(od.supplier_id)
+			ods=PlanOrder.objects.using('plan_order').filter()
+			if ods.exists():
+				for od in ods:
+					supplier.append(od.supplier_id)
+			supplier=list(set(supplier))
+		else:
+			supplier.append(supplier_id)
 
-        assert len(supplier), "无对账数据"
+		assert len(supplier), "无对账数据"
 
-        #判断供应商在此对账期间是否已对账
-        st=Statement.objects.filter(supplier_id__in=supplier,limit=limit)
-        if st.exists() :
-            for item in st:
-                supplier.remove(item.supplier_id)
-        assert len(supplier), "请勿重复对账"
+		#判断供应商在此对账期间是否已对账
+		st=Statement.objects.filter(supplier_id__in=supplier,limit=limit)
+		if st.exists() :
+			for item in st:
+				supplier.remove(item.supplier_id)
+		assert len(supplier), "请勿重复对账"
 
-        #获取满足条件订单(含普通订单和方案订单)
-        statement_list=OrderAllQuery.query_statement(			\
-                                status=[7,14],
-                                    plan_status=[6,],
-                                        start_date=last_start_date,
-                                            end_date=end_date,
-                                                supplier=tuple(supplier))
+		#获取满足条件订单(含普通订单和方案订单)
+		statement_list=OrderAllQuery.query_statement(			\
+								status=[7,14],
+									plan_status=[6,],
+										start_date=last_start_date,
+											end_date=end_date,
+												supplier=tuple(supplier))
 
-        assert len(statement_list), "无对账数据"
-        print(statement_list)
-        #生成对账单
-        insert_statement_dict=dict()
-        for statement in statement_list:
-            if statement['supplier_id'] not in insert_statement_dict.keys():
-                """
-                    供应商首次计算账单进入此处
-                """
-                insert_statement_dict[statement['supplier_id']]={
-                    'code' : Get_Rule_Code(type=1),
-                    'supplier_id':statement['supplier_id'],
-                    'supplier_name':statement['supplier_name'],
-                    'limit':limit,
-                    'date':date,
-                    'goods_total':Decimal(0.0),
-                    'commission_total':Decimal(0.0),
-                }
-            code = insert_statement_dict[statement['supplier_id']]['code']
-            if statement['status'] == 7 or statement['status']==6:
-                statementdetail = self.insert_statementdetail(code,statement,None)
-                insert_statement_dict[statement['supplier_id']]['goods_total'] += \
-                                statementdetail.pay_total
-                insert_statement_dict[statement['supplier_id']]['commission_total'] += \
-                                statementdetail.commission
-            else:
-                from ..order_model import OrderReturns
-                return_obj=OrderReturns.objects.using('order').filter(order_sn=statement['order_code'],status=4)
-                if return_obj.exists():
-                    obj=return_obj.first()
-                    statementdetail = self.insert_statementdetail(code, statement, obj)
-                    insert_statement_dict[statement['supplier_id']]['goods_total'] -= statementdetail.refund_amount
-                    insert_statement_dict[statement['supplier_id']]['commission_total'] -= statementdetail.refund_commission
+		assert len(statement_list), "无对账数据"
+		print(statement_list)
+		#生成对账单
+		insert_statement_dict=dict()
+		for statement in statement_list:
+			if statement['supplier_id'] not in insert_statement_dict.keys():
+				"""
+					供应商首次计算账单进入此处
+				"""
+				insert_statement_dict[statement['supplier_id']]={
+					'code' : Get_Rule_Code(type=1),
+					'supplier_id':statement['supplier_id'],
+					'supplier_name':statement['supplier_name'],
+					'limit':limit,
+					'date':date,
+					'goods_total':Decimal(0.0),
+					'commission_total':Decimal(0.0),
+				}
+			code = insert_statement_dict[statement['supplier_id']]['code']
+			if statement['status'] == 7 or statement['status']==6:
+				statementdetail = self.insert_statementdetail(code,statement,None)
+				insert_statement_dict[statement['supplier_id']]['goods_total'] += \
+								statementdetail.pay_total
+				insert_statement_dict[statement['supplier_id']]['commission_total'] += \
+								statementdetail.commission
+			else:
+				from ..order_model import OrderReturns
+				return_obj=OrderReturns.objects.using('order').filter(order_sn=statement['order_code'],status=4)
+				if return_obj.exists():
+					obj=return_obj.first()
+					statementdetail = self.insert_statementdetail(code, statement, obj)
+					insert_statement_dict[statement['supplier_id']]['goods_total'] -= statementdetail.refund_amount
+					insert_statement_dict[statement['supplier_id']]['commission_total'] -= statementdetail.refund_commission
 
+		[ Statement.objects.create(**insert_statement_dict[k]) for k in insert_statement_dict ]
 
-        [ Statement.objects.create(**insert_statement_dict[k]) for k in insert_statement_dict ]
-
-        return True
+		return True
 
 class ModiStatementSerializer(serializers.Serializer):
 
@@ -1247,3 +1246,40 @@ class AccTermActionSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = AccTermAction
 		fields = '__all__'
+
+
+
+
+class StatementTicketSerializer(serializers.ModelSerializer):
+
+	name=serializers.SerializerMethodField()
+	limit=serializers.SerializerMethodField()
+	term=serializers.SerializerMethodField()
+	ticket_amount=serializers.SerializerMethodField()
+	status=serializers.SerializerMethodField()
+	url_number=serializers.SerializerMethodField()
+
+	def get_name(self,obj):
+		return '长沙孚中'
+
+	def get_term(self,obj):
+		start_date, end_date = Get_mse_day(int(str(obj.limit)[:4]),int(str(obj.limit)[4:]))
+		return '{}年{}月{}日-{}年{}月{}日'.format(
+			start_date[:4],start_date[5:7],start_date[8:],
+			end_date[:4], end_date[5:7], end_date[8:],
+		)
+	def get_limit(self,obj):
+		return "{}年{}月".format(str(obj.limit)[:4],str(obj.limit)[5:])
+
+	def get_ticket_amount(self,obj):
+		return  obj.total_money
+
+	def get_status(self,obj):
+		return '待上传发票' if not obj.img_url or  not len(obj.img_url) else '上传发票'
+
+	def get_url_number(self,obj):
+		return len(obj.img_url.split('|')) if obj.img_url else 0
+
+	class Meta:
+		model=Statement
+		fields = ('name','limit','term','code','confirm_amount','taxfree_money','tax_money','total_money','ticket_amount','status','url_number')

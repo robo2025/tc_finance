@@ -20,8 +20,7 @@ SETTLE_TYPE=(
 STATEMENT_STATUS = (
     (1, '待发布'),
     (2, '待确认'),
-    (3, '已确认'),
-	(4, '供应商确认'),
+	(3, '供应商确认'),
 )
 
 TICKET_STATUS = (
@@ -136,6 +135,13 @@ class Statement(models.Model):
 	confirm_amount = models.DecimalField(verbose_name='确认金额',max_digits=18,decimal_places=2,default=0.0)
 	confirm_remark = models.CharField(max_length=1024,verbose_name='备注',default='')
 	add_time = models.DateTimeField(default=timezone.now,verbose_name='添加时间')
+
+	taxfree_money = models.DecimalField(default=0.0,max_digits=18, decimal_places=2,verbose_name='未税金额')
+
+	tax_money=models.DecimalField(default=0.0,max_digits=18, decimal_places=2,verbose_name='含税金额')
+	total_money=models.DecimalField(default=0.0,max_digits=18, decimal_places=2,verbose_name='价税合计')
+	img_url=models.TextField(default='')
+
 
 	class Meta:
 		verbose_name = '对账单'
