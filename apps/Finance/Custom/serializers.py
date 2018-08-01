@@ -762,9 +762,9 @@ class NoFinanceReceiptSerializer(serializers.Serializer):
 	def get_amount(self,obj):
 		return obj.use_pay_total
 	def get_ticket_amount(self,obj):
-		return obj.use_pay_total
+		return obj.ticket_amount
 	def get_ticket_tot(self,obj):
-		return obj.use_pay_total-obj.ticket_amount
+		return obj.use_pay_total - obj.ticket_amount
 	def get_order_code_tmp(self,obj):
 		return obj.order_code
 	def get_index(self,obj):
