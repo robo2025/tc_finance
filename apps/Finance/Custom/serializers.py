@@ -1,6 +1,6 @@
 
-from decimal import Decimal,getcontext
 
+from decimal import Decimal,getcontext
 from rest_framework import serializers
 
 from ..Custom.db import db
@@ -16,7 +16,7 @@ from ..models import (
 					FinanceReceiptListDetail,
 					FReceiptListDetail,
 					FReceiptList,
-					FReceipt)
+					FReceipt,AccTermRule,AccTermAction)
 
 from ..order_model import (	OrderDetail,OrderPayment,
 								Order,Receipt,
@@ -1082,7 +1082,6 @@ class FReceiptListSerializer(serializers.Serializer):
 	upd_time=serializers.DateTimeField()
 	name=serializers.CharField()
 
-		
 class FReceiptSerializer(serializers.Serializer):
 	receipt_sn = serializers.CharField()
 	receipt_status = serializers.IntegerField()
@@ -1235,3 +1234,12 @@ class FINReceiptSerializer(serializers.Serializer):
 		return datetime_to_timestamp(obj.create_time)
 	def get_receipt_url(self,obj):
 		return obj.img
+
+class AccTermRuleSerializer(serializers.ModelSerializer):
+	class Meta:
+		model = AccTermRule
+		fields = '__all__'
+class AccTermActionSerializer(serializers.ModelSerializer):
+	class Meta:
+		model = AccTermAction
+		fields = '__all__'

@@ -336,3 +336,23 @@ class FReceiptListDetail(models.Model):
 		verbose_name = '开票信息'
 		db_table = 'receiptlistdetail'
 
+class AccTermRule(models.Model):
+	code=models.CharField(primary_key=True,max_length=60,verbose_name='账期规则代码')
+	name=models.CharField(max_length=255,verbose_name='规则名称')
+	day=models.IntegerField(default=15)
+
+	class Meta:
+		verbose_name = '账期规则表'
+		db_table = 'acctermrule'
+
+class AccTermAction(models.Model):
+	code=models.CharField(max_length=60,null=True,default='',verbose_name='账期规则代码')
+	supplier_id = models.IntegerField(verbose_name='供应商ID')
+	supplier_name = models.CharField(max_length=100,verbose_name='供应商名',null=True,blank=True)
+
+
+	class Meta:
+		verbose_name = '账期规则分配表'
+		db_table = 'acctermaction'
+
+
