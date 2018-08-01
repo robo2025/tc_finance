@@ -11,7 +11,7 @@ from apps.Finance.models import Statement,StatementDetail
 
 from apps.Finance.utils import get_orders_obj,noticket_query,yesticket_query
 
-# 对账单
+
 class StatementSupViewset(ListModelMixinCustom,GenericViewSetCustom):
 
     authentication_classes = [SupplierAuthentication]
@@ -57,9 +57,9 @@ class StatementSupViewset(ListModelMixinCustom,GenericViewSetCustom):
             raise AssertionError("对账单[%s]记录不存在！" % (obj.code))
         return []
 
-# 发票上传
 class TicketUploadViewset(GenericViewSetCustom):
 
+    authentication_classes = [SupplierAuthentication]
 
     @Core_connector(pagination=True)
     def list(self,request,*args,**kwargs):
@@ -70,19 +70,28 @@ class TicketUploadViewset(GenericViewSetCustom):
         statement_queryset=Statement.objects.all()
 
         if is_type and str(is_type)=='1':
-            statement_queryset.filter(img_url='')
+            statement_queryset=statement_queryset.filter(img_url='')
         elif is_type and str(is_type)=='2':
-            statement_queryset.exclude(img_url='')
+            statement_queryset=statement_queryset.exclude(img_url='')
 
         if start_ym and end_ym and start_ym <= end_ym:
             start_ym=start_ym.replace('-')
             end_ym=end_ym.replace('-')
-            statement_queryset.filter(limit__gte=start_ym,limit__lte=end_ym)
+            statement_queryset=statement_queryset.filter(limit__gte=start_ym,limit__lte=end_ym)
 
         return {'data':StatementTicketSerializer(statement_queryset.filter(status=3),many=True).data}
 
+    @Core_connector(transaction=True)
+    def update(self,request,*args,**kwargs):
+        pk=kwargs.get('pk',None)
+        img_url=self.request.data.get('img_url',None)
+        if pk and img_url:
+            isinstance=Statement.objects.filter(code=pk)
+            if not isinstance:
+                raise PubErrorCustom("未找到")
+            isinstance.update(img_url=img_url)
+        return []
 
-# 报表-对账查询
 class StatementSupDetaiExlViewset(GenericViewSetCustom):
     authentication_classes = [SupplierAuthentication]
 

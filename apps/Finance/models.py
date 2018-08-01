@@ -355,9 +355,12 @@ class AccTermRule(models.Model):
 		db_table = 'acctermrule'
 
 class AccTermAction(models.Model):
-	code=models.CharField(max_length=60,null=True,default='',verbose_name='账期规则代码')
+	code=models.CharField(max_length=60,verbose_name='账期规则代码')
 	supplier_id = models.IntegerField(verbose_name='供应商ID')
-	supplier_name = models.CharField(max_length=100,verbose_name='供应商名',null=True,blank=True)
+	supplier_name = models.CharField(max_length=100,verbose_name='供应商名')
+
+	name=None
+	day=None
 
 
 	class Meta:

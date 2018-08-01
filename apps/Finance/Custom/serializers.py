@@ -2,6 +2,7 @@
 
 from decimal import Decimal,getcontext
 from rest_framework import serializers
+from rest_framework.validators import UniqueTogetherValidator
 
 from ..Custom.db import db
 
@@ -1242,10 +1243,25 @@ class AccTermRuleSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = AccTermRule
 		fields = '__all__'
+
 class AccTermActionSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = AccTermAction
 		fields = '__all__'
+		validators = [
+			UniqueTogetherValidator(
+				queryset=AccTermAction.objects.all(),
+				fields=('code', 'supplier_id'),
+				message="请勿重复添加！"
+			)
+		]
+
+class AccTermActionSerializer1(serializers.Serializer):
+	name=serializers.CharField()
+	supplier_name=serializers.CharField()
+	supplier_id=serializers.IntegerField()
+	id=serializers.IntegerField()
+
 
 
 
