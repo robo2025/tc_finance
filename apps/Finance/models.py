@@ -284,7 +284,7 @@ class FReceipt(models.Model):
 	receipt_account = models.CharField(max_length=20, default='开户账号')
 
 	goods_money = models.DecimalField(default=0.0,max_digits=18, decimal_places=2,verbose_name='货款合计')
-	number=models.IntegerField(default=0,verbose_name='数量合计')
+	number=models.FloatField(default=0.0,verbose_name='数量合计')
 	receipt_money = models.DecimalField(default=0.0,max_digits=18, decimal_places=2,verbose_name='开票金额')
 
 	custom=models.CharField(max_length=60,null=True,default="",verbose_name='联系人')
@@ -302,7 +302,7 @@ class FReceiptList(models.Model):
 	receipt_sn = models.CharField(max_length=60,null=True,default='',verbose_name='发票编号')
 	name = models.CharField(max_length=255,default='',verbose_name='货物或应税劳务名称')
 	unit = models.CharField(max_length=10,default='',verbose_name='单位')
-	number = models.IntegerField(default=0,verbose_name='数量')
+	number = models.FloatField(default=0.0,verbose_name='数量')
 	price = models.DecimalField(default=0.0,max_digits=18, decimal_places=2,verbose_name='单价')
 	rate = models.DecimalField(default=0.16,max_digits=18, decimal_places=2,verbose_name='税率')
 	taxfree_money = models.DecimalField(default=0.0,max_digits=18, decimal_places=2,verbose_name='未税金额')
@@ -322,7 +322,7 @@ class FReceiptListDetail(models.Model):
 	goods_name = models.CharField(max_length=255,default='',verbose_name='商品名称')
 	model = models.CharField(max_length=255,default='',verbose_name='型号')
 	unit = models.CharField(max_length=10,default='',verbose_name='商品单位')
-	number = models.IntegerField(default=0,verbose_name='商品数量')
+	number = models.FloatField(default=0.0,verbose_name='商品数量')
 	price = models.DecimalField(default=0.0,max_digits=18, decimal_places=2,verbose_name='单价')
 	goods_money = models.DecimalField(default=0.0, max_digits=18, decimal_places=2,verbose_name='货款合计')
 	commission =  models.DecimalField(default=0.0, max_digits=18, decimal_places=2,verbose_name='佣金')
