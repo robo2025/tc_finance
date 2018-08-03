@@ -124,82 +124,86 @@ class RefundCheck(models.Model):
 		db_table = 'refundcheck'
 
 class Statement(models.Model):
-	id=models.BigAutoField(primary_key=True)
-	code = models.CharField(max_length=17,verbose_name='对账单号')
-	supplier_id = models.IntegerField(verbose_name='供应商ID')
-	supplier_name = models.CharField(max_length=100,verbose_name='供应商名',null=True,blank=True)
-	limit = models.CharField(verbose_name='对账月份',max_length=6,default='')
-	goods_total = models.DecimalField(verbose_name='合计金额',max_digits=18,decimal_places=2)
-	commission_total = models.DecimalField(verbose_name='佣金合计',max_digits=18,decimal_places=2)
-	status = models.IntegerField(choices=STATEMENT_STATUS,verbose_name='状态',default=1)
-	date  =  models.DateField(null=True,verbose_name='对账日期')
-	confirm_amount = models.DecimalField(verbose_name='确认金额',max_digits=18,decimal_places=2,default=0.0)
-	confirm_remark = models.CharField(max_length=1024,verbose_name='备注',default='')
-	add_time = models.DateTimeField(default=timezone.now,verbose_name='添加时间')
+    id=models.BigAutoField(primary_key=True)
+    code = models.CharField(max_length=17,verbose_name='对账单号')
+    supplier_id = models.IntegerField(verbose_name='供应商ID')
+    supplier_name = models.CharField(max_length=100,verbose_name='供应商名',null=True,blank=True)
+    limit = models.CharField(verbose_name='对账月份',max_length=6,default='')
+    goods_total = models.DecimalField(verbose_name='合计金额',max_digits=18,decimal_places=2)
+    commission_total = models.DecimalField(verbose_name='佣金合计',max_digits=18,decimal_places=2)
+    status = models.IntegerField(choices=STATEMENT_STATUS,verbose_name='状态',default=1)
+    date  =  models.DateField(null=True,verbose_name='对账日期')
+    confirm_amount = models.DecimalField(verbose_name='确认金额',max_digits=18,decimal_places=2,default=0.0)
+    confirm_commission = models.DecimalField(verbose_name='确认佣金',max_digits=18,decimal_places=2,default=0.0)
+    confirm_remark = models.CharField(max_length=1024,verbose_name='备注',default='')
+    add_time = models.DateTimeField(default=timezone.now,verbose_name='添加时间')
 
-	taxfree_money = models.DecimalField(default=0.0,max_digits=18, decimal_places=2,verbose_name='未税金额')
+    taxfree_money = models.DecimalField(default=0.0,max_digits=18, decimal_places=2,verbose_name='未税金额')
 
-	tax_money=models.DecimalField(default=0.0,max_digits=18, decimal_places=2,verbose_name='含税金额')
-	total_money=models.DecimalField(default=0.0,max_digits=18, decimal_places=2,verbose_name='价税合计')
-	img_url=models.TextField(default='')
+    tax_money=models.DecimalField(default=0.0,max_digits=18, decimal_places=2,verbose_name='含税金额')
+    total_money=models.DecimalField(default=0.0,max_digits=18, decimal_places=2,verbose_name='价税合计')
+    img_url=models.TextField(default='')
+
+    settlement_amount = None
+    pay_amount = None
 
 
-	class Meta:
-		verbose_name = '对账单'
-		verbose_name_plural = verbose_name
-		db_table = 'statement'
+    class Meta:
+        verbose_name = '对账单'
+        verbose_name_plural = verbose_name
+        db_table = 'statement'
 
 class StatementDetail(models.Model):
-	id=models.BigAutoField(primary_key=True)
-	code = models.CharField(max_length=17,verbose_name='对账单号')
-	order_code = models.CharField(max_length=17,verbose_name='订单号')
-	other_code = models.CharField(max_length=32,verbose_name='退款单号',default='')
-	order_status = models.IntegerField(choices=ORDER_STATUS,default=0,verbose_name='订单状态')
-	supplier_id = models.IntegerField(verbose_name='供应商ID',default=0)
-	supplier_name = models.CharField(max_length=100,verbose_name='供应商名',null=True,blank=True)
-	goods_sn=models.CharField(max_length=32,verbose_name='商品ID',default='')
-	goods_name = models.CharField(max_length=100,verbose_name='商品名',default='')
-	model = models.CharField(max_length=100, null=True, verbose_name='型号', default='')
-	price = models.DecimalField(default=0.0, verbose_name='单价', max_digits=18, decimal_places=2) #数量
-	number = models.IntegerField(default=0, verbose_name='数量')
-	commission = models.DecimalField(default=0.0, verbose_name='佣金', max_digits=18, decimal_places=2)
-	pay_total = models.DecimalField(default=0.0, verbose_name='实际支付', max_digits=18, decimal_places=2)
-	refund_number = models.IntegerField(default=0, verbose_name='退款数量')
-	refund_amount = models.DecimalField(default=0.0, verbose_name='退款货款', max_digits=18, decimal_places=2)
-	refund_commission = models.DecimalField(default=0.0, verbose_name='退款佣金', max_digits=18, decimal_places=2)
-	order_date = models.DateField(null=True, verbose_name='添加时间')
-	refund_date = models.DateField(null=True, verbose_name='退款单日期')
-	status = models.IntegerField(choices=STATEMENT_STATUS, verbose_name='状态', default=1)
-	confirm_date = models.DateField(null=True,verbose_name="确认日期")
-	add_time = models.DateTimeField(default=timezone.now, verbose_name='添加时间')
-	use_code=models.CharField(max_length=32,verbose_name='订单号/退款单号/方案订单号',default='')
-	limit = None
-	unit = None
-	rest_type = None
+    id=models.BigAutoField(primary_key=True)
+    code = models.CharField(max_length=17,verbose_name='对账单号')
+    order_code = models.CharField(max_length=17,verbose_name='订单号')
+    other_code = models.CharField(max_length=32,verbose_name='退款单号',default='')
+    order_status = models.IntegerField(choices=ORDER_STATUS,default=0,verbose_name='订单状态')
+    supplier_id = models.IntegerField(verbose_name='供应商ID',default=0)
+    supplier_name = models.CharField(max_length=100,verbose_name='供应商名',null=True,blank=True)
+    goods_sn=models.CharField(max_length=32,verbose_name='商品ID',default='')
+    goods_name = models.CharField(max_length=100,verbose_name='商品名',default='')
+    model = models.CharField(max_length=100, null=True, verbose_name='型号', default='')
+    price = models.DecimalField(default=0.0, verbose_name='单价', max_digits=18, decimal_places=2)
+    number = models.IntegerField(default=0, verbose_name='数量')
+    commission = models.DecimalField(default=0.0, verbose_name='佣金', max_digits=18, decimal_places=2)
+    pay_total = models.DecimalField(default=0.0, verbose_name='实际支付', max_digits=18, decimal_places=2)
+    refund_number = models.IntegerField(default=0, verbose_name='退款数量')
+    refund_amount = models.DecimalField(default=0.0, verbose_name='退款货款', max_digits=18, decimal_places=2)
+    refund_commission = models.DecimalField(default=0.0, verbose_name='退款佣金', max_digits=18, decimal_places=2)
+    order_date = models.DateField(null=True, verbose_name='添加时间')
+    refund_date = models.DateField(null=True, verbose_name='退款单日期')
+    status = models.IntegerField(choices=STATEMENT_STATUS, verbose_name='状态', default=1)
+    confirm_date = models.DateField(null=True,verbose_name="确认日期")
+    add_time = models.DateTimeField(default=timezone.now, verbose_name='添加时间')
+    use_code=models.CharField(max_length=32,verbose_name='订单号/退款单号/方案订单号',default='')
+    limit = None
+    unit = None
+    rest_type = None
 
-	use_pay_total=None
-	use_commission=None
-	ticket_amount=None
+    use_pay_total=None
+    use_commission=None
+    ticket_amount=None
 
-	tax_number=None
-	title=None
-	company_address=None
-	telephone=None
-	bank=None
-	account=None
-	receipt_type=None
-	guest_company_name=None
-	order_time = None
+    tax_number=None
+    title=None
+    company_address=None
+    telephone=None
+    bank=None
+    account=None
+    receipt_type=None
+    guest_company_name=None
+    order_time = None
 
-	receipt_sn = None
-	receipt_no = None
+    receipt_sn = None
+    receipt_no = None
 
-	show_number=None
+    show_number=None
 
-	class Meta:
-		verbose_name = '对账单详情'
-		verbose_name_plural = verbose_name
-		db_table = 'statementdetail'
+    class Meta:
+        verbose_name = '对账单详情'
+        verbose_name_plural = verbose_name
+        db_table = 'statementdetail'
 
 class FinanceReceipt(models.Model):
 	receipt_id = models.BigAutoField(primary_key=True)
@@ -367,4 +371,35 @@ class AccTermAction(models.Model):
 		verbose_name = '账期规则分配表'
 		db_table = 'acctermaction'
 
+
+class Settlement(models.Model):
+    setcode = models.CharField(max_length=60,verbose_name="结算编号")
+    code = models.CharField(max_length=60,verbose_name="对账编号")
+    amount = models.DecimalField(default=0.0,max_digits=18, decimal_places=2,verbose_name='结算金额')
+    settlement_amount = models.DecimalField(default=0.0,max_digits=18, decimal_places=2,verbose_name='待结算金额')
+    pay_amount = models.DecimalField(default=0.0,max_digits=18, decimal_places=2,verbose_name='实付金额')
+    type = models.IntegerField(default=1,verbose_name="类型 1-货款,2-佣金")
+    is_settlement = models.IntegerField(default=2,verbose_name='货款是否结算完结 1-是,2-否')
+    is_commissionsettlement = models.IntegerField(default=2, verbose_name='佣金是否结算完结 1-是,2-否')
+    is_confirm = models.IntegerField(default=2,verbose_name="收款是否完结确认 1-是,2-否")
+    supplier_id = models.IntegerField(verbose_name='供应商编号')
+    supplier_name = models.CharField(max_length=60,verbose_name="供应商名称")
+    create_time = models.DateTimeField(default=timezone.now,verbose_name='创建时间')
+
+    class Meta:
+        verbose_name = '结算表'
+        db_table = 'settlement'
+
+class SettlementList(models.Model):
+
+    paycode = models.CharField(max_length=60,verbose_name="付款编号")
+    setcode = models.CharField(max_length=60,verbose_name="结算编号")
+    settlement_amount = models.DecimalField(default=0.0,max_digits=18, decimal_places=2,verbose_name='待结算金额')
+    pay_amount = models.DecimalField(default=0.0,max_digits=18, decimal_places=2,verbose_name='本次实付金额')
+    is_confirm = models.IntegerField(default=2,verbose_name="收款确认 1-是,2-否")
+    create_time = models.DateTimeField(default=timezone.now,verbose_name='创建时间')
+
+    class Meta:
+        verbose_name = '结算明细表'
+        db_table = 'settlementlist'
 

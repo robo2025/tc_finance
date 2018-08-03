@@ -11,7 +11,7 @@ from Finance.api.api1 import (  PriceruleViewSet,
                                 TranListViewset,
                                 MediaExport)
 
-from Finance.api.api2 import ( CommissionTicket,TicketViewset,AccTermRuleViewset,AccTermActionViewset)
+from Finance.api.api2 import ( CommissionTicket,TicketViewset,AccTermRuleViewset,AccTermActionViewset,SettlementViewset,SettlementCommissionViewset)
 
 from Finance.api.supplier import StatementSupViewset,StatementSupDetaiExlViewset,CommissionSupTicket,TicketUploadViewset
 
@@ -35,6 +35,8 @@ route_urls=[
 
     ('financial/acctermrule', AccTermRuleViewset),
     ('financial/acctermaction', AccTermActionViewset),
+    ('financial/settlement', SettlementViewset),
+    ('financial/settlementcommission', SettlementCommissionViewset),
 
     # 供应商
     ('financial/sup/statement',StatementSupViewset),

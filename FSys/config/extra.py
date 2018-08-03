@@ -3,7 +3,7 @@ import os
 
 # ===============================================================================# SSO 配置
 # ===============================================================================
-SSO_HOST = os.environ.get('SSO_HOST', 'https://testlogin.robo2025.com')
+SSO_HOST = os.environ.get('SSO_HOST', 'https://testapi.robo2025.com/sso')
 SSO_VERIFY = SSO_HOST + '/server/verify'
 SSO_EXPIRE_TIME = 24 * 60 * 60
 

@@ -263,11 +263,17 @@ class float_math:
         return Decimal(float(t1)*float(t2))
 
 
-#
-# class StatementDetailExport:
-#     def export(data):
-#
-#
+def list_map_reduce(obj,key1,key2):
+    if isinstance(obj,list):
+        pass
+    else:
+        tmp={}
+        for d in obj:
+           if getattr(d,key1) not in tmp:
+               tmp[getattr(d,key1)]=getattr(d,key2)
+           else:
+               tmp[getattr(d, key1)] += getattr(d,key2)
+    return [ {n:v} for n,v in tmp.items() ]
 
 
 

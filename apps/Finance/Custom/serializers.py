@@ -17,7 +17,7 @@ from ..models import (
 					FinanceReceiptListDetail,
 					FReceiptListDetail,
 					FReceiptList,
-					FReceipt,AccTermRule,AccTermAction)
+					FReceipt,AccTermRule,AccTermAction,Settlement,SettlementList)
 
 from ..order_model import (	OrderDetail,OrderPayment,
 								Order,Receipt,
@@ -417,17 +417,17 @@ class StatementDetailSerializer(serializers.ModelSerializer):
     date=serializers.SerializerMethodField()
 
     def get_typename(self,obj):
-        return "订单" if not obj.other_code else "退货单"
+        return "订单" if obj.use_code[:2]!='TH' else "退货单"
     def get_number(self,obj):
-        return obj.number if not obj.other_code else obj.refund_number
+        return obj.number if obj.use_code[:2]!='TH' else obj.refund_number
     def get_amount(self,obj):
-        return obj.pay_total if not obj.other_code else Decimal(0.0)-obj.refund_amount
+        return obj.pay_total if obj.use_code[:2]!='TH' else Decimal(0.0)-obj.refund_amount
     def get_commission(self,obj):
-        return obj.commission if not obj.other_code else Decimal(0.0)-obj.refund_commission
+        return obj.commission if obj.use_code[:2]!='TH' else Decimal(0.0)-obj.refund_commission
     def get_order_code(self,obj):
-        return obj.order_code if not obj.other_code else obj.other_code
+        return obj.use_code
     def get_date(self,obj):
-        return obj.order_date if not obj.other_code else obj.refund_date
+        return obj.order_date
     class Meta:
         model=StatementDetail
         fields = ('code','date','confirm_date','typename','order_code',
@@ -1262,10 +1262,6 @@ class AccTermActionSerializer1(serializers.Serializer):
 	supplier_id=serializers.IntegerField()
 	id=serializers.IntegerField()
 
-
-
-
-
 class StatementTicketSerializer(serializers.ModelSerializer):
 
 	name=serializers.SerializerMethodField()
@@ -1299,3 +1295,69 @@ class StatementTicketSerializer(serializers.ModelSerializer):
 	class Meta:
 		model=Statement
 		fields = ('name','limit','term','code','confirm_amount','taxfree_money','tax_money','total_money','ticket_amount','status','url_number')
+
+class SettlementListPaySerializer(serializers.Serializer):
+	supplier_name = serializers.CharField()
+	paycode = serializers.CharField()
+	paydate = serializers.SerializerMethodField()
+	code = serializers.CharField()
+	pay_amount = serializers.DecimalField(max_digits=18,decimal_places=2)
+
+	def get_paydate(self,obj):
+		paydate=str(obj.create_time)
+		return "{}年{}月{}日".format(paydate[:4],paydate[5:7],paydate[8:10])
+
+class SettlementListSerializer(serializers.Serializer):
+	supplier_name = serializers.CharField()
+	limit = serializers.SerializerMethodField()
+	term = serializers.SerializerMethodField()
+	code = serializers.CharField()
+	status = serializers.SerializerMethodField()
+	url_number = serializers.SerializerMethodField()
+	confirm_amount = serializers.DecimalField(max_digits=18,decimal_places=2)
+	settlement_amount = serializers.SerializerMethodField()
+	pay_amount = serializers.SerializerMethodField()
+
+	def get_limit(self,obj):
+		return "{}年{}月".format(str(obj.limit)[:4],str(obj.limit)[5:])
+	def get_term(self,obj):
+		start_date, end_date = Get_mse_day(int(str(obj.limit)[:4]),int(str(obj.limit)[4:]))
+		return '{}年{}月{}日-{}年{}月{}日'.format(
+			start_date[:4],start_date[5:7],start_date[8:],
+			end_date[:4], end_date[5:7], end_date[8:],
+		)
+	def get_status(self,obj):
+		return '已开票' if len(obj.img_url) else '未开票'
+	def get_url_number(self,obj):
+		return len(obj.img_url.split('|'))
+	def get_settlement_amount(self,obj):
+		return obj.settlement_amount if obj.settlement_amount else obj.confirm_amount
+	def get_pay_amount(self,obj):
+		return obj.pay_amount if obj.pay_amount else 0.0
+
+class SettlementListCommissionSerializer(serializers.Serializer):
+	supplier_name = serializers.CharField()
+	limit = serializers.SerializerMethodField()
+	term = serializers.SerializerMethodField()
+	code = serializers.CharField()
+	confirm_amount = serializers.DecimalField(max_digits=18,decimal_places=2)
+	confirm_commission = serializers.DecimalField(max_digits=18,decimal_places=2)
+	settlement_amount = serializers.SerializerMethodField()
+
+	def get_limit(self,obj):
+		return "{}年{}月".format(str(obj.limit)[:4],str(obj.limit)[5:])
+	def get_term(self,obj):
+		start_date, end_date = Get_mse_day(int(str(obj.limit)[:4]),int(str(obj.limit)[4:]))
+		return '{}年{}月{}日-{}年{}月{}日'.format(
+			start_date[:4],start_date[5:7],start_date[8:],
+			end_date[:4], end_date[5:7], end_date[8:],
+		)
+	def get_settlement_amount(self,obj):
+		return obj.settlement_amount if obj.settlement_amount else obj.confirm_commission
+
+class StatementDetailSerializer1(StatementDetailSerializer):
+
+	class Meta:
+		model=StatementDetail
+		fields = ('code','date','typename','order_code',
+					'goods_name','model','price','number','amount','commission')

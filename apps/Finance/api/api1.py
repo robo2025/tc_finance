@@ -344,6 +344,12 @@ class StatementViewset(ModelViewSetCustom):
 			for obj in objects:
 				assert obj.status==1,'对账单[%s]状态有误！'%(obj.code)
 				obj.status=2
+				"""
+					暂时没有财务确认交易，先加上自动处理财务确认逻辑
+				"""
+				obj.status=4
+				obj.confirm_amount=obj.goods_total
+				obj.confirm_commission=obj.commission_total
 				obj.save()
 		StatementDetail.objects.filter(code__in=codes).update(status=2)
 		return []
