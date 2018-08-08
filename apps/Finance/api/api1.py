@@ -877,7 +877,16 @@ class StatementDetaiExlViewset(GenericViewSetCustom):
                 where t1.status=3 order by t1.add_time desc
             """
 		)
-		return {"data": StatementDetailExSerializer(obj, many=True).data}
+
+		data = StatementDetailExSerializer(obj, many=True).data
+
+		header = {
+			"number_tot": reduce(lambda x, y: int(x) + int(y['number']), data, 0),
+			"amount": reduce(lambda x, y: Decimal(x) + Decimal(y['amount']), data, 0),
+			"commission": reduce(lambda x, y: Decimal(x) + Decimal(y['commission']), data, 0),
+		}
+
+		return {"data": data, 'header': header}
 
 	@list_route(methods=['GET'])
 	@Core_connector(pagination=True)
@@ -936,7 +945,13 @@ class StatementDetaiExlViewset(GenericViewSetCustom):
 				'commission': Decimal(0.0) - item.use_commission if item.order_code[
 																	:2] == 'TH' else item.use_commission,
 			})
-		return {"data": data}
+		header = {
+			"number_tot": reduce(lambda x, y: int(x) + int(y['number']), data, 0),
+			"amount": reduce(lambda x, y: Decimal(x) + Decimal(y['amount']), data, 0),
+			"commission": reduce(lambda x, y: Decimal(x) + Decimal(y['commission']), data, 0),
+		}
+
+		return {"data": data, 'header': header}
 
 #  资源下载
 class MediaExport(GenericViewSetCustom):

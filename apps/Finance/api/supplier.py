@@ -1,4 +1,5 @@
 
+from functools import reduce
 from decimal import Decimal
 from rest_framework.decorators import detail_route, list_route
 from core.decorator.response import Core_connector
@@ -117,7 +118,15 @@ class StatementSupDetaiExlViewset(GenericViewSetCustom):
                 where t2.supplier_id=%s and t1.status=3 order by t1.add_time desc
             """,[self.request.user.main_user_id]
         )
-        return {"data":StatementDetailExSerializer(obj, many=True).data}
+        data=StatementDetailExSerializer(obj, many=True).data
+
+        header={
+            "number_tot":reduce(lambda x,y:int(x)+int(y['number']),data,0),
+            "amount":reduce(lambda x,y:Decimal(x)+Decimal(y['amount']),data,0),
+            "commission":reduce(lambda x,y:Decimal(x)+Decimal(y['commission']),data,0),
+        }
+
+        return {"data":data,'header':header}
 
     @list_route(methods=['GET'])
     @Core_connector(pagination=True)
@@ -176,7 +185,14 @@ class StatementSupDetaiExlViewset(GenericViewSetCustom):
                 'amount':Decimal(0.0) - item.use_pay_total if item.order_code[:2]=='TH' else item.use_pay_total,
                  'commission':Decimal(0.0) - item.use_commission if item.order_code[:2]=='TH' else item.use_commission,
             })
-        return {"data":data}
+
+        header={
+            "number_tot":reduce(lambda x,y:int(x)+int(y['number']),data,0),
+            "amount":reduce(lambda x,y:Decimal(x)+Decimal(y['amount']),data,0),
+            "commission":reduce(lambda x,y:Decimal(x)+Decimal(y['commission']),data,0),
+        }
+
+        return {"data":data,'header':header}
 
 class CommissionSupTicket(GenericViewSetCustom):
     authentication_classes = [SupplierAuthentication]
