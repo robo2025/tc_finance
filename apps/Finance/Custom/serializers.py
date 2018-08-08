@@ -645,7 +645,7 @@ class OrderAllQuery:
 			获取已经下订单的供应商
 		"""
 		tmp_supplier=[]
-		if not supplier:
+		if len(supplier):
 			objs = OrderDetail.objects.using('order').filter()
 			if objs.exists():
 				for obj in objs:

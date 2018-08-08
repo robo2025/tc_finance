@@ -26,7 +26,7 @@ class StatementSupViewset(ListModelMixinCustom,GenericViewSetCustom):
     lookup_field = ("code")
 
     def get_queryset(self):
-        return Statement.objects.filter().order_by('-add_time')
+        return Statement.objects.filter(supplier_id=self.request.user.main_user_id).order_by('-add_time')
 
     def get_serializer_class(self):
         return StatementSerializer
@@ -107,14 +107,15 @@ class StatementSupDetaiExlViewset(GenericViewSetCustom):
             {'key': "limit_filter", 'condition': "lte", 'inkey': 'end_dt'},
             {'key': "code", 'condition': 'like', },
         ]
+
         obj=StatementDetail.objects.raw(
             """
                 select t1.id as statementdetail_ptr_id,
                       t1.*,t2.limit,t2.status as main_status
                 from statementdetail as t1
                 inner join statement as t2 on t1.code=t2.code
-                where t1.status=3 order by t1.add_time desc
-            """
+                where t2.supplier_id=%s and t1.status=3 order by t1.add_time desc
+            """,[self.request.user.main_user_id]
         )
         return {"data":StatementDetailExSerializer(obj, many=True).data}
 
@@ -128,7 +129,8 @@ class StatementSupDetaiExlViewset(GenericViewSetCustom):
             {'key': "order_date", 'condition': "lte", 'inkey': 'end_dt'},
         ]
         # 获取满足条件订单(含普通订单和方案订单)
-        supplier=OrderAllQuery.get_supplier()
+        supplier=[self.request.user.main_user_id]
+        supplier=OrderAllQuery.get_supplier(supplier)
         DD_params=[supplier]
         FA_params=[supplier]
         TH_params=[supplier]
@@ -227,7 +229,6 @@ class CommissionSupTicket(GenericViewSetCustom):
              return {'data': NoFRceiptSerializer(noticket_query(where_sql=where_sql,params=params), many=True).data}
         elif str(is_type)=='2':
             return {'data': YesFRceiptSerializer(yesticket_query(where_sql=where_sql,params=params), many=True).data}
-
 
 class SettlementSupViewset(GenericViewSetCustom,SettlementHandleGoods):
 

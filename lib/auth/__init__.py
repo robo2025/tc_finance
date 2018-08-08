@@ -9,11 +9,10 @@ from core.http.response import res_code, ResCode
 
 User = get_user_model()
 
-
 def get_user(request):
     """
-    Return the users model instance associated with the given request session.
-    If no users is retrieved, return an instance of `AnonymousUser`.
+    Return the user model instance associated with the given request session.
+    If no user is retrieved, return an instance of `AnonymousUser`.
     """
 
     user = AnonymousUser()
@@ -42,7 +41,8 @@ def get_user(request):
         user.mobile = user_data.get('mobile')
         user.email = user_data.get('email')
         user.user_type = user_data.get('user_type')
-        user.is_superuser = user_data.get('is_superuser')
-        user.is_staff = user_data.get('is_staff')
+        user.is_subuser = user_data.get('is_subuser')
+        user.main_user_id = user_data.get('main_user_id')
+        user.permissions = user_data.get('permissions')
 
     return (user, result.get('msg'), status_code, rescode)
