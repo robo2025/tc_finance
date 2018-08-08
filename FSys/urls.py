@@ -13,7 +13,7 @@ from Finance.api.api1 import (  PriceruleViewSet,
 
 from Finance.api.api2 import ( CommissionTicket,TicketViewset,AccTermRuleViewset,AccTermActionViewset,SettlementViewset,SettlementCommissionViewset)
 
-from Finance.api.supplier import StatementSupViewset,StatementSupDetaiExlViewset,CommissionSupTicket,TicketUploadViewset
+from Finance.api.supplier import StatementSupViewset,StatementSupDetaiExlViewset,CommissionSupTicket,TicketUploadViewset,SettlementSupViewset,SettlementCommissionSupViewset
 
 route_urls=[
     # 结算价格规则列表
@@ -43,6 +43,8 @@ route_urls=[
     ('financial/sup/statementexdetail', StatementSupDetaiExlViewset),
     ('financial/sup/commission_ticket', CommissionSupTicket),
     ('financial/sup/ticketupload', TicketUploadViewset),
+    ('financial/sup/settlement', SettlementSupViewset),
+    ('financial/sup/settlementcommission', SettlementCommissionSupViewset),
 ]
 
 

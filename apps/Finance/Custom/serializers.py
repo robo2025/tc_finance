@@ -1307,33 +1307,48 @@ class SettlementListPaySerializer(serializers.Serializer):
 		paydate=str(obj.create_time)
 		return "{}年{}月{}日".format(paydate[:4],paydate[5:7],paydate[8:10])
 
-class SettlementListSerializer(serializers.Serializer):
-	supplier_name = serializers.CharField()
-	limit = serializers.SerializerMethodField()
-	term = serializers.SerializerMethodField()
-	code = serializers.CharField()
-	status = serializers.SerializerMethodField()
-	url_number = serializers.SerializerMethodField()
-	confirm_amount = serializers.DecimalField(max_digits=18,decimal_places=2)
-	settlement_amount = serializers.SerializerMethodField()
-	pay_amount = serializers.SerializerMethodField()
+class SettlementListPaySupSerializer(SettlementListPaySerializer):
+    supplier_name = serializers.SerializerMethodField()
 
-	def get_limit(self,obj):
-		return "{}年{}月".format(str(obj.limit)[:4],str(obj.limit)[5:])
-	def get_term(self,obj):
-		start_date, end_date = Get_mse_day(int(str(obj.limit)[:4]),int(str(obj.limit)[4:]))
-		return '{}年{}月{}日-{}年{}月{}日'.format(
-			start_date[:4],start_date[5:7],start_date[8:],
-			end_date[:4], end_date[5:7], end_date[8:],
-		)
-	def get_status(self,obj):
-		return '已开票' if len(obj.img_url) else '未开票'
-	def get_url_number(self,obj):
-		return len(obj.img_url.split('|'))
-	def get_settlement_amount(self,obj):
-		return obj.settlement_amount if obj.settlement_amount else obj.confirm_amount
-	def get_pay_amount(self,obj):
-		return obj.pay_amount if obj.pay_amount else 0.0
+    def get_supplier_name(self,obj):
+        return '孚中'
+
+class SettlementListSupSerializer(serializers.Serializer):
+    supplier_name = serializers.SerializerMethodField()
+    limit = serializers.SerializerMethodField()
+    term = serializers.SerializerMethodField()
+    code = serializers.CharField()
+    confirm_amount = serializers.DecimalField(max_digits=18, decimal_places=2)
+    confirm_commission = serializers.DecimalField(max_digits=18, decimal_places=2)
+    settlement_amount = serializers.SerializerMethodField()
+
+    def get_supplier_name(self,obj):
+        return '孚中'
+
+    def get_limit(self, obj):
+        return "{}年{}月".format(str(obj.limit)[:4], str(obj.limit)[5:])
+
+    def get_term(self, obj):
+        start_date, end_date = Get_mse_day(int(str(obj.limit)[:4]), int(str(obj.limit)[4:]))
+        return '{}年{}月{}日-{}年{}月{}日'.format(
+            start_date[:4], start_date[5:7], start_date[8:],
+            end_date[:4], end_date[5:7], end_date[8:],
+        )
+    def get_settlement_amount(self, obj):
+        return obj.settlement_amount if obj.settlement_amount else obj.confirm_amount
+
+class SettlementListSerializer(SettlementListSupSerializer):
+    supplier_name = serializers.CharField()
+    status = serializers.SerializerMethodField()
+    url_number = serializers.SerializerMethodField()
+    pay_amount = serializers.SerializerMethodField()
+
+    def get_status(self,obj):
+        return '已开票' if len(obj.img_url) else '未开票'
+    def get_url_number(self,obj):
+        return len(obj.img_url.split('|'))
+    def get_pay_amount(self,obj):
+        return obj.pay_amount if obj.pay_amount else 0.0
 
 class SettlementListCommissionSerializer(serializers.Serializer):
 	supplier_name = serializers.CharField()
@@ -1354,6 +1369,17 @@ class SettlementListCommissionSerializer(serializers.Serializer):
 		)
 	def get_settlement_amount(self,obj):
 		return obj.settlement_amount if obj.settlement_amount else obj.confirm_commission
+
+class SettlementListSupCommissionSerializer(SettlementListCommissionSerializer):
+    supplier_name = serializers.SerializerMethodField()
+    pay_amount =  serializers.SerializerMethodField()
+
+    def get_supplier_name(self,obj):
+        return '孚中'
+
+    def get_pay_amount(self,obj):
+        return obj.pay_amount if obj.pay_amount else 0.0
+
 
 class StatementDetailSerializer1(StatementDetailSerializer):
 

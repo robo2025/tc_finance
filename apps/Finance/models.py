@@ -403,3 +403,17 @@ class SettlementList(models.Model):
         verbose_name = '结算明细表'
         db_table = 'settlementlist'
 
+class Ledger(models.Model):
+
+	subject_code = models.CharField(max_length=60,verbose_name='科目代码')
+	subject_name = models.CharField(max_length=255,verbose_name='科目名称')
+	final_bal = models.DecimalField(default=0.0,max_digits=18, decimal_places=2,verbose_name='期末余额')
+	init_bal = models.DecimalField(default=0.0,max_digits=18, decimal_places=2,verbose_name='期初余额')
+	bal = models.DecimalField(default=0.0,max_digits=18, decimal_places=2,verbose_name='余额')
+	direction = models.CharField(max_length=1,verbose_name='记账方向 借方-D  贷方-L')
+	direction_name = models.CharField(max_length=20,verbose_name='记账方向名称')
+
+	class Meta:
+		verbose_name = '分户账(科目账)'
+		db_table = 'ledger'
+

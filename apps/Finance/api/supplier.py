@@ -6,11 +6,13 @@ from auth.authentication import SupplierAuthentication
 from utils.exceptions import PubErrorCustom
 
 from apps.Finance.Custom.mixins import (ListModelMixinCustom, GenericViewSetCustom)
-from apps.Finance.Custom.serializers import StatementSerializer,StatementDetailSerializer,OrderAllQuery,StatementDetailExSerializer,NoFRceiptSerializer,YesFRceiptSerializer,StatementTicketSerializer
+from apps.Finance.Custom.serializers import (StatementSerializer,StatementDetailSerializer,
+                                                OrderAllQuery,StatementDetailExSerializer,NoFRceiptSerializer,
+                                             YesFRceiptSerializer,StatementTicketSerializer,SettlementListSupCommissionSerializer,
+                                                StatementDetailSerializer1,SettlementListSupSerializer,SettlementListPaySupSerializer)
 from apps.Finance.models import Statement,StatementDetail
 
-from apps.Finance.utils import get_orders_obj,noticket_query,yesticket_query
-
+from apps.Finance.utils import get_orders_obj,noticket_query,yesticket_query,SettlementHandleGoods,SettlementHandleCommission
 
 class StatementSupViewset(ListModelMixinCustom,GenericViewSetCustom):
 
@@ -225,3 +227,99 @@ class CommissionSupTicket(GenericViewSetCustom):
              return {'data': NoFRceiptSerializer(noticket_query(where_sql=where_sql,params=params), many=True).data}
         elif str(is_type)=='2':
             return {'data': YesFRceiptSerializer(yesticket_query(where_sql=where_sql,params=params), many=True).data}
+
+
+class SettlementSupViewset(GenericViewSetCustom,SettlementHandleGoods):
+
+    @Core_connector(pagination=True)
+    def list(self,request,*args,**kwargs):
+        where_sql=str()
+        params=list()
+
+        start_ym=self.request.query_params.get('start_ym',None)
+        end_ym=self.request.query_params.get('end_ym',None)
+        code = self.request.query_params.get('code',None)
+
+        if code:
+            where_sql = "{} and LOCATE(%s,t1.code)>0".format(where_sql)
+            params.append(code)
+        if start_ym and end_ym and end_ym >= start_ym:
+            start_ym = start_ym.replace('-', '')
+            end_ym = end_ym.replace('-', '')
+            where_sql = "{} and t1.limit >=%s and t1.limit <=%s ".format(where_sql)
+            params.append(start_ym)
+            params.append(end_ym)
+
+        self.query(where_sql,params)
+        return {'data':SettlementListSupSerializer(self.data,many=True).data}
+
+    @Core_connector()
+    def retrieve(self, request, *args, **kwargs):
+        return {'data':StatementDetailSerializer1(StatementDetail.objects.filter(code=kwargs.get('pk')).order_by('-order_date'),many=True).data}
+
+    @list_route(methods=['GET'])
+    @Core_connector(pagination=True)
+    def paylist(self,request,*args,**kwargs):
+        where_sql=str()
+        params=list()
+
+        start_dt=self.request.query_params.get('start_dt',None)
+        end_dt=self.request.query_params.get('end_dt',None)
+
+        if start_dt and end_dt and end_dt >= start_dt:
+            where_sql = "{} and substr(t1.create_time,1,10) >=%s and substr(t1.create_time,1,10) <=%s ".format(where_sql)
+            params.append(start_dt)
+            params.append(end_dt)
+
+        self.payquery(where_sql,params)
+        return {'data':SettlementListPaySupSerializer(self.data,many=True).data}
+
+class SettlementCommissionSupViewset(GenericViewSetCustom,SettlementHandleCommission):
+
+    @Core_connector(pagination=True)
+    def list(self, request, *args, **kwargs):
+        where_sql = str()
+        params = list()
+
+        start_ym = self.request.query_params.get('start_ym', None)
+        end_ym = self.request.query_params.get('end_ym', None)
+        code = self.request.query_params.get('code', None)
+
+        if code:
+            where_sql = "{} and LOCATE(%s,t1.code)>0".format(where_sql)
+            params.append(code)
+        if start_ym and end_ym and end_ym >= start_ym:
+            start_ym = start_ym.replace('-', '')
+            end_ym = end_ym.replace('-', '')
+            where_sql = "{} and t1.limit >=%s and t1.limit <=%s ".format(where_sql)
+            params.append(start_ym)
+            params.append(end_ym)
+
+        self.query(where_sql, params)
+        return {'data': SettlementListSupCommissionSerializer(self.data, many=True).data}
+
+    @Core_connector(transaction=True)
+    def create(self,request,*args,**kwargs):
+        self.settlement(self.request.data)
+        return []
+
+    @Core_connector()
+    def retrieve(self, request, *args, **kwargs):
+        return {'data':StatementDetailSerializer1(StatementDetail.objects.filter(code=kwargs.get('pk')).order_by('-order_date'),many=True).data}
+
+    @list_route(methods=['GET'])
+    @Core_connector(pagination=True)
+    def paylist(self,request,*args,**kwargs):
+        where_sql=str()
+        params=list()
+
+        start_dt=self.request.query_params.get('start_dt',None)
+        end_dt=self.request.query_params.get('end_dt',None)
+
+        if start_dt and end_dt and end_dt >= start_dt:
+            where_sql = "{} and substr(t1.create_time,1,10) >=%s and substr(t1.create_time,1,10) <=%s ".format(where_sql)
+            params.append(start_dt)
+            params.append(end_dt)
+
+        self.payquery(where_sql,params)
+        return {'data':SettlementListPaySupSerializer(self.data,many=True).data}
