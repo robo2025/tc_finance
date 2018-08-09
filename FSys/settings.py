@@ -42,7 +42,7 @@ ALLOWED_HOSTS = ['*']
 
 # 跨域配置
 CORS_ORIGIN_ALLOW_ALL = True
-CORS_EXPOSE_HEADERS = ['X-Content-Range', 'X-Content-Total']
+CORS_EXPOSE_HEADERS = ['X-Content-Range', 'X-Content-Total','number_tot','amount','commission']
 
 APPEND_SLASH=False
 
