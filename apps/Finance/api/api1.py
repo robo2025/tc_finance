@@ -1,6 +1,7 @@
 
 import os
 import time
+from functools import reduce
 from decimal import Decimal
 from rest_framework.decorators import detail_route, list_route
 
