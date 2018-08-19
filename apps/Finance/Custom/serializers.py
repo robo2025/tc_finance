@@ -738,7 +738,7 @@ class RefundPayTranListSerializer(serializers.Serializer):
 		return obj.amount
 
 class NoFinanceReceiptSerializer(serializers.Serializer):
-	guest_company_name=serializers.CharField()
+	guest_company_name=serializers.SerializerMethodField()
 	tax_number=serializers.CharField()
 	title=serializers.CharField()
 	date=serializers.SerializerMethodField()
@@ -754,6 +754,8 @@ class NoFinanceReceiptSerializer(serializers.Serializer):
 	order_code_tmp=serializers.SerializerMethodField()
 	index=serializers.SerializerMethodField()
 
+	def get_guest_company_name(self,obj):
+		return obj.supplier_name
 	def get_number(self,obj):
 		return obj.show_number
 	def get_date(self,obj):
@@ -958,7 +960,7 @@ class FinanceReceiptSerializer(serializers.ModelSerializer):
 
 class FinanceReceiptDetailSerializer1(serializers.Serializer):
 
-	guest_company_name=serializers.CharField()
+	guest_company_name=serializers.SerializerMethodField()
 	receipt_type=serializers.CharField()
 	order_code=serializers.CharField()
 	goods_name=serializers.CharField()
@@ -975,6 +977,9 @@ class FinanceReceiptDetailSerializer1(serializers.Serializer):
 	order_code_tmp=serializers.SerializerMethodField()
 	open_receipt_time=serializers.SerializerMethodField()
 	index=serializers.SerializerMethodField()
+
+	def get_guest_company_name(self,obj):
+		return obj.supplier_name
 
 	def get_number(self,obj):
 		return obj.number

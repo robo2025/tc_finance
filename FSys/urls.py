@@ -45,7 +45,7 @@ route_urls=[
     ('financial/sup/ticketupload', TicketUploadViewset),
     ('financial/sup/settlement', SettlementSupViewset),
     ('financial/sup/settlementcommission', SettlementCommissionSupViewset),
-    ('financial/sup/commission_ticket', TicketSupViewset),
+    ('financial/sup/commission', TicketSupViewset),
 
 ]
 
