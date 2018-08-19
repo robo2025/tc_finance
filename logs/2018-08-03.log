@@ -1,0 +1,33 @@
+DEBUG [2018-08-03 16:19:45] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 18184 14856 
+ 	 [SettlementCommissionSupViewset : list]Training complete in 1.417224 real seconds 
+
+DEBUG [2018-08-03 16:21:01] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 18184 9828 
+ 	 [SettlementCommissionSupViewset : create]Training complete in 2.077451 real seconds 
+
+ERROR [2018-08-03 16:27:37] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 32 error 34828 34944 
+ 	 (1062, "Duplicate entry 'AP000000407-1' for key 'sttlement_prt_2'") 
+
+DEBUG [2018-08-03 16:28:13] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 28280 29528 
+ 	 [SettlementCommissionSupViewset : create]Training complete in 3.572455 real seconds 
+
+DEBUG [2018-08-03 16:29:01] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 28280 28544 
+ 	 [SettlementCommissionSupViewset : create]Training complete in 1.317480 real seconds 
+
+DEBUG [2018-08-03 16:29:23] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 28280 12376 
+ 	 [SettlementCommissionSupViewset : list]Training complete in 0.818765 real seconds 
+
+DEBUG [2018-08-03 16:29:52] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 28280 16412 
+ 	 [SettlementCommissionSupViewset : list]Training complete in 1.306502 real seconds 
+
+DEBUG [2018-08-03 16:29:59] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 28280 28696 
+ 	 [SettlementCommissionSupViewset : create]Training complete in 2.431498 real seconds 
+
+DEBUG [2018-08-03 16:30:01] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 28280 9508 
+ 	 [SettlementCommissionSupViewset : list]Training complete in 0.409902 real seconds 
+
+DEBUG [2018-08-03 16:30:21] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 28280 6020 
+ 	 [SettlementCommissionSupViewset : retrieve]Training complete in 1.802172 real seconds 
+
+DEBUG [2018-08-08 10:20:25] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 36668 33860 
+ 	 [SettlementCommissionSupViewset : retrieve]Training complete in 1.507972 real seconds 
+

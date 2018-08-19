@@ -1,0 +1,408 @@
+ERROR [2018-08-02 09:54:19] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 32 error 23208 25668 
+ 	 name 'Statement' is not defined 
+
+DEBUG [2018-08-02 09:54:59] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 18728 32548 
+ 	 [SettlementViewset : goods]Training complete in 0.492687 real seconds 
+
+ERROR [2018-08-02 10:00:20] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 32 error 37216 32816 
+ 	 (1064, "You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'and length(t1.img_url) > 0  (t2.is_settlement is null or t2.is_settlement=2)' at line 4") 
+
+ERROR [2018-08-02 10:00:48] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 32 error 34016 25840 
+ 	 (1064, "You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'and length(t1.img_url) > 0  and (t2.is_settlement is null or t2.is_settlement=2)' at line 4") 
+
+DEBUG [2018-08-02 10:01:10] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 38000 37976 
+ 	 [SettlementViewset : goods]Training complete in 0.464215 real seconds 
+
+ERROR [2018-08-02 10:01:40] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 32 error 19072 27104 
+ 	 'SettlementViewset' object has no attribute '_data' 
+
+DEBUG [2018-08-02 10:02:49] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 26708 38044 
+ 	 [SettlementViewset : goods]Training complete in 0.510683 real seconds 
+
+DEBUG [2018-08-02 10:02:53] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 26708 27540 
+ 	 [SettlementViewset : goods]Training complete in 0.530574 real seconds 
+
+ERROR [2018-08-02 10:36:29] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 32 error 32560 38856 
+ 	 unsupported operand type(s) for +: 'int' and 'str' 
+
+ERROR [2018-08-02 10:37:13] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 32 error 37600 16560 
+ 	 unsupported operand type(s) for +: 'int' and 'str' 
+
+DEBUG [2018-08-02 10:51:16] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 27156 10588 
+ 	 [SettlementViewset : goodsset]Training complete in 0.707169 real seconds 
+
+DEBUG [2018-08-02 10:52:20] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 22420 4084 
+ 	 [SettlementViewset : goodsset]Training complete in 0.801705 real seconds 
+
+DEBUG [2018-08-02 10:52:56] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 29296 38048 
+ 	 [SettlementViewset : goodsset]Training complete in 0.629340 real seconds 
+
+DEBUG [2018-08-02 11:13:33] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 37256 17036 
+ 	 [SettlementViewset : goodsset]Training complete in 0.657253 real seconds 
+
+DEBUG [2018-08-02 11:13:49] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 37256 12072 
+ 	 [SettlementViewset : goodsset]Training complete in 0.694221 real seconds 
+
+DEBUG [2018-08-02 11:14:29] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 37256 17080 
+ 	 [SettlementViewset : goodsset]Training complete in 0.842878 real seconds 
+
+DEBUG [2018-08-02 11:24:49] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 36480 22664 
+ 	 [SettlementViewset : goodsset]Training complete in 0.633308 real seconds 
+
+DEBUG [2018-08-02 11:27:01] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 37828 14864 
+ 	 [SettlementViewset : goodsset]Training complete in 1.482038 real seconds 
+
+DEBUG [2018-08-02 11:27:04] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 37828 38764 
+ 	 [SettlementViewset : goodsset]Training complete in 0.624329 real seconds 
+
+DEBUG [2018-08-02 11:27:28] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 37828 37016 
+ 	 [SettlementViewset : goods]Training complete in 0.428797 real seconds 
+
+DEBUG [2018-08-02 11:28:18] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 23720 32168 
+ 	 [SettlementViewset : list]Training complete in 0.564522 real seconds 
+
+DEBUG [2018-08-02 11:28:30] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 23720 38536 
+ 	 [SettlementViewset : list]Training complete in 0.416897 real seconds 
+
+DEBUG [2018-08-02 11:28:33] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 23720 9820 
+ 	 [SettlementViewset : list]Training complete in 0.501605 real seconds 
+
+DEBUG [2018-08-02 11:35:51] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 23720 32660 
+ 	 [SettlementViewset : list]Training complete in 0.429851 real seconds 
+
+DEBUG [2018-08-02 11:41:09] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 32660 21500 
+ 	 [SettlementViewset : list]Training complete in 0.501665 real seconds 
+
+DEBUG [2018-08-02 11:41:25] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 32660 29520 
+ 	 [SettlementViewset : list]Training complete in 0.436851 real seconds 
+
+DEBUG [2018-08-02 11:45:31] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 10468 20948 
+ 	 [SettlementViewset : list]Training complete in 0.445812 real seconds 
+
+DEBUG [2018-08-02 11:45:59] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 10468 32780 
+ 	 [SettlementViewset : list]Training complete in 0.450801 real seconds 
+
+DEBUG [2018-08-02 11:46:25] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 10468 33352 
+ 	 [SettlementViewset : list]Training complete in 0.449760 real seconds 
+
+DEBUG [2018-08-02 11:46:33] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 10468 20032 
+ 	 [SettlementViewset : list]Training complete in 0.383990 real seconds 
+
+DEBUG [2018-08-02 11:46:42] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 10468 18056 
+ 	 [SettlementViewset : create]Training complete in 0.753990 real seconds 
+
+DEBUG [2018-08-02 11:46:50] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 10468 15540 
+ 	 [SettlementViewset : list]Training complete in 0.397890 real seconds 
+
+DEBUG [2018-08-02 11:46:52] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 10468 38784 
+ 	 [SettlementViewset : list]Training complete in 0.425861 real seconds 
+
+DEBUG [2018-08-02 11:47:02] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 10468 14948 
+ 	 [SettlementViewset : create]Training complete in 0.609354 real seconds 
+
+DEBUG [2018-08-02 11:47:05] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 10468 36384 
+ 	 [SettlementViewset : list]Training complete in 0.417886 real seconds 
+
+DEBUG [2018-08-02 12:17:47] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 27656 10652 
+ 	 [SettlementViewset : list]Training complete in 0.394988 real seconds 
+
+DEBUG [2018-08-02 12:17:52] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 27656 4888 
+ 	 [SettlementViewset : list]Training complete in 0.389960 real seconds 
+
+DEBUG [2018-08-02 12:18:28] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 27656 30928 
+ 	 [SettlementViewset : list]Training complete in 0.447747 real seconds 
+
+DEBUG [2018-08-02 12:18:34] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 27656 35244 
+ 	 [SettlementViewset : list]Training complete in 0.487706 real seconds 
+
+DEBUG [2018-08-02 12:18:51] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 27656 33040 
+ 	 [SettlementViewset : list]Training complete in 0.419899 real seconds 
+
+DEBUG [2018-08-02 12:22:13] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 38580 31168 
+ 	 [SettlementViewset : list]Training complete in 0.495713 real seconds 
+
+DEBUG [2018-08-02 12:22:17] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 38580 12600 
+ 	 [SettlementViewset : list]Training complete in 0.391955 real seconds 
+
+DEBUG [2018-08-02 12:22:40] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 38580 5468 
+ 	 [SettlementViewset : list]Training complete in 0.440874 real seconds 
+
+DEBUG [2018-08-02 12:22:43] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 38580 33756 
+ 	 [SettlementViewset : list]Training complete in 0.368960 real seconds 
+
+DEBUG [2018-08-02 12:22:46] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 38580 20012 
+ 	 [SettlementViewset : list]Training complete in 0.461715 real seconds 
+
+DEBUG [2018-08-02 12:23:09] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 38580 10608 
+ 	 [SettlementViewset : list]Training complete in 0.456779 real seconds 
+
+DEBUG [2018-08-02 12:23:14] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 38580 32212 
+ 	 [SettlementViewset : list]Training complete in 0.553531 real seconds 
+
+DEBUG [2018-08-02 12:23:32] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 38580 31296 
+ 	 [SettlementViewset : list]Training complete in 0.524638 real seconds 
+
+DEBUG [2018-08-02 12:23:59] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 38580 32732 
+ 	 [SettlementViewset : create]Training complete in 0.802904 real seconds 
+
+DEBUG [2018-08-02 12:24:14] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 38580 29784 
+ 	 [SettlementViewset : create]Training complete in 0.610370 real seconds 
+
+DEBUG [2018-08-02 12:24:44] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 38580 32468 
+ 	 [SettlementViewset : create]Training complete in 1.075154 real seconds 
+
+DEBUG [2018-08-02 12:53:44] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 31752 17952 
+ 	 [SettlementViewset : list]Training complete in 0.632319 real seconds 
+
+DEBUG [2018-08-02 12:53:51] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 31752 23156 
+ 	 [SettlementViewset : list]Training complete in 0.539584 real seconds 
+
+DEBUG [2018-08-02 12:54:03] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 31752 12608 
+ 	 [SettlementViewset : create]Training complete in 1.146938 real seconds 
+
+DEBUG [2018-08-02 12:54:25] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 31752 30112 
+ 	 [SettlementViewset : create]Training complete in 3.841746 real seconds 
+
+DEBUG [2018-08-02 12:55:06] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 31752 37184 
+ 	 [SettlementViewset : create]Training complete in 1.266574 real seconds 
+
+DEBUG [2018-08-02 12:55:28] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 31752 23264 
+ 	 [SettlementViewset : list]Training complete in 0.551564 real seconds 
+
+DEBUG [2018-08-02 12:55:32] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 31752 8096 
+ 	 [SettlementViewset : list]Training complete in 0.562436 real seconds 
+
+DEBUG [2018-08-02 13:08:34] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 16656 25244 
+ 	 [SettlementCommissionViewset : list]Training complete in 0.376993 real seconds 
+
+DEBUG [2018-08-02 13:09:02] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 35992 25736 
+ 	 [SettlementCommissionViewset : list]Training complete in 0.402914 real seconds 
+
+DEBUG [2018-08-02 13:23:31] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 14140 37624 
+ 	 [SettlementViewset : retrieve]Training complete in 0.543581 real seconds 
+
+DEBUG [2018-08-02 13:23:59] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 36928 32632 
+ 	 [SettlementViewset : retrieve]Training complete in 0.801869 real seconds 
+
+DEBUG [2018-08-02 13:26:59] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 23104 12240 
+ 	 [SettlementViewset : retrieve]Training complete in 0.863695 real seconds 
+
+DEBUG [2018-08-02 13:28:16] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 38260 35028 
+ 	 [SettlementViewset : retrieve]Training complete in 0.807850 real seconds 
+
+DEBUG [2018-08-02 13:29:52] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 28752 31684 
+ 	 [SettlementViewset : retrieve]Training complete in 1.000325 real seconds 
+
+DEBUG [2018-08-02 13:31:11] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 17548 33988 
+ 	 [SettlementViewset : retrieve]Training complete in 0.834779 real seconds 
+
+DEBUG [2018-08-02 13:31:57] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 19152 29344 
+ 	 [SettlementViewset : retrieve]Training complete in 0.818807 real seconds 
+
+DEBUG [2018-08-02 13:48:28] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 19628 33580 
+ 	 [SettlementCommissionViewset : list]Training complete in 0.421848 real seconds 
+
+DEBUG [2018-08-02 13:52:43] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 19628 20428 
+ 	 [SettlementCommissionViewset : list]Training complete in 0.455740 real seconds 
+
+DEBUG [2018-08-02 13:53:02] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 19628 31792 
+ 	 [SettlementCommissionViewset : list]Training complete in 0.366026 real seconds 
+
+DEBUG [2018-08-02 14:06:37] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 24944 23304 
+ 	 [SettlementViewset : list]Training complete in 0.419873 real seconds 
+
+DEBUG [2018-08-02 14:06:44] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 24944 1672 
+ 	 [SettlementViewset : list]Training complete in 0.428854 real seconds 
+
+DEBUG [2018-08-02 14:09:31] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 36960 38036 
+ 	 [SettlementCommissionViewset : list]Training complete in 0.405917 real seconds 
+
+DEBUG [2018-08-02 15:02:18] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 29808 34152 
+ 	 [SettlementViewset : list]Training complete in 0.430857 real seconds 
+
+DEBUG [2018-08-02 15:03:15] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 17220 35264 
+ 	 [SettlementViewset : list]Training complete in 0.397946 real seconds 
+
+DEBUG [2018-08-02 15:08:34] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 38660 35168 
+ 	 [SettlementViewset : create]Training complete in 1.920834 real seconds 
+
+DEBUG [2018-08-02 15:09:57] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 31600 37776 
+ 	 [SettlementViewset : create]Training complete in 2.090400 real seconds 
+
+DEBUG [2018-08-02 15:12:28] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 21272 24956 
+ 	 [SettlementViewset : create]Training complete in 1.643654 real seconds 
+
+DEBUG [2018-08-02 15:19:35] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 38272 37236 
+ 	 [SettlementViewset : create]Training complete in 1.294499 real seconds 
+
+DEBUG [2018-08-02 15:20:33] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 8084 37268 
+ 	 [SettlementViewset : create]Training complete in 0.825226 real seconds 
+
+DEBUG [2018-08-02 15:20:48] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 8084 32092 
+ 	 [SettlementViewset : create]Training complete in 0.874653 real seconds 
+
+DEBUG [2018-08-02 15:23:25] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 30832 27044 
+ 	 [SettlementViewset : create]Training complete in 1.342428 real seconds 
+
+DEBUG [2018-08-02 15:28:41] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 18492 35704 
+ 	 [SettlementViewset : create]Training complete in 1.498942 real seconds 
+
+DEBUG [2018-08-02 15:32:34] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 1900 36636 
+ 	 [SettlementViewset : create]Training complete in 1.323499 real seconds 
+
+DEBUG [2018-08-02 15:32:55] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 1900 26104 
+ 	 [SettlementViewset : create]Training complete in 0.779858 real seconds 
+
+DEBUG [2018-08-02 15:34:32] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 8168 38316 
+ 	 [SettlementViewset : create]Training complete in 0.868249 real seconds 
+
+DEBUG [2018-08-02 15:37:10] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 35780 35940 
+ 	 [SettlementViewset : create]Training complete in 1.022319 real seconds 
+
+DEBUG [2018-08-02 15:37:42] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 35780 21656 
+ 	 [SettlementViewset : create]Training complete in 1.138952 real seconds 
+
+DEBUG [2018-08-02 15:37:53] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 35780 1304 
+ 	 [SettlementViewset : create]Training complete in 0.754996 real seconds 
+
+DEBUG [2018-08-02 15:38:08] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 35780 9400 
+ 	 [SettlementViewset : create]Training complete in 0.818811 real seconds 
+
+DEBUG [2018-08-02 15:39:06] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 38336 23264 
+ 	 [SettlementViewset : create]Training complete in 1.556835 real seconds 
+
+DEBUG [2018-08-02 15:39:18] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 38336 8444 
+ 	 [SettlementViewset : create]Training complete in 0.746996 real seconds 
+
+DEBUG [2018-08-02 15:40:36] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 20768 6776 
+ 	 [SettlementViewset : create]Training complete in 0.967438 real seconds 
+
+DEBUG [2018-08-02 15:40:55] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 20768 13020 
+ 	 [SettlementViewset : create]Training complete in 0.921643 real seconds 
+
+DEBUG [2018-08-02 15:41:16] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 20768 37568 
+ 	 [SettlementViewset : list]Training complete in 0.408921 real seconds 
+
+DEBUG [2018-08-02 15:41:19] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 20768 17692 
+ 	 [SettlementViewset : list]Training complete in 0.372015 real seconds 
+
+DEBUG [2018-08-02 16:07:30] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 38396 38292 
+ 	 [SettlementViewset : list]Training complete in 0.382961 real seconds 
+
+DEBUG [2018-08-02 16:07:33] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 38396 38784 
+ 	 [SettlementViewset : list]Training complete in 0.420879 real seconds 
+
+DEBUG [2018-08-02 16:07:44] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 38396 4952 
+ 	 [SettlementViewset : create]Training complete in 1.786226 real seconds 
+
+DEBUG [2018-08-02 16:08:13] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 38396 20132 
+ 	 [SettlementViewset : create]Training complete in 1.243177 real seconds 
+
+DEBUG [2018-08-02 16:15:36] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 8392 14264 
+ 	 [SettlementViewset : create]Training complete in 1.674526 real seconds 
+
+DEBUG [2018-08-02 16:15:37] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 8392 17812 
+ 	 [SettlementViewset : list]Training complete in 0.450813 real seconds 
+
+DEBUG [2018-08-02 16:15:43] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 8392 7928 
+ 	 [SettlementViewset : list]Training complete in 0.800814 real seconds 
+
+DEBUG [2018-08-02 16:16:22] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 8392 36888 
+ 	 [SettlementViewset : list]Training complete in 0.449800 real seconds 
+
+DEBUG [2018-08-02 16:17:05] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 35540 17904 
+ 	 [SettlementViewset : retrieve]Training complete in 1.026291 real seconds 
+
+DEBUG [2018-08-02 16:18:35] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 1668 35244 
+ 	 [SettlementViewset : list]Training complete in 0.408946 real seconds 
+
+DEBUG [2018-08-02 16:18:51] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 1668 33892 
+ 	 [SettlementCommissionViewset : list]Training complete in 0.429853 real seconds 
+
+DEBUG [2018-08-02 16:25:56] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 27316 38592 
+ 	 [SettlementCommissionViewset : list]Training complete in 0.354057 real seconds 
+
+DEBUG [2018-08-02 16:26:03] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 27316 27876 
+ 	 [SettlementViewset : list]Training complete in 0.427859 real seconds 
+
+DEBUG [2018-08-02 16:26:53] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 24912 21204 
+ 	 [SettlementViewset : list]Training complete in 0.468965 real seconds 
+
+DEBUG [2018-08-02 16:27:04] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 24912 23100 
+ 	 [SettlementCommissionViewset : list]Training complete in 0.459768 real seconds 
+
+DEBUG [2018-08-02 16:27:26] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 24912 8616 
+ 	 [SettlementCommissionViewset : retrieve]Training complete in 1.198737 real seconds 
+
+DEBUG [2018-08-02 16:51:10] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 35084 32232 
+ 	 [SettlementViewset : create]Training complete in 1.704447 real seconds 
+
+DEBUG [2018-08-02 16:51:34] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 35084 19516 
+ 	 [SettlementViewset : paylist]Training complete in 0.530585 real seconds 
+
+DEBUG [2018-08-02 16:52:03] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 34704 28616 
+ 	 [SettlementViewset : paylist]Training complete in 0.462803 real seconds 
+
+DEBUG [2018-08-02 16:52:31] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 34704 27328 
+ 	 [SettlementViewset : create]Training complete in 1.532906 real seconds 
+
+DEBUG [2018-08-02 16:52:36] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 34704 30344 
+ 	 [SettlementViewset : paylist]Training complete in 0.383974 real seconds 
+
+DEBUG [2018-08-02 16:55:22] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 18080 32348 
+ 	 [SettlementViewset : paylist]Training complete in 0.481663 real seconds 
+
+DEBUG [2018-08-02 16:55:57] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 20948 34356 
+ 	 [SettlementViewset : paylist]Training complete in 0.402930 real seconds 
+
+DEBUG [2018-08-02 16:56:03] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 20948 38132 
+ 	 [SettlementViewset : paylist]Training complete in 0.406913 real seconds 
+
+DEBUG [2018-08-02 16:56:16] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 20948 22420 
+ 	 [SettlementViewset : paylist]Training complete in 0.398910 real seconds 
+
+DEBUG [2018-08-02 16:56:42] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 20948 32996 
+ 	 [SettlementViewset : paylist]Training complete in 0.393004 real seconds 
+
+DEBUG [2018-08-02 16:57:23] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 24280 17400 
+ 	 [SettlementViewset : paylist]Training complete in 0.386932 real seconds 
+
+DEBUG [2018-08-02 16:59:49] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 15596 22816 
+ 	 [SettlementViewset : paylist]Training complete in 0.373005 real seconds 
+
+DEBUG [2018-08-02 16:59:56] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 15596 34160 
+ 	 [SettlementViewset : paylist]Training complete in 0.426858 real seconds 
+
+DEBUG [2018-08-02 17:02:13] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 18908 36900 
+ 	 [SettlementViewset : paylist]Training complete in 0.542542 real seconds 
+
+DEBUG [2018-08-02 17:02:46] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 18908 38828 
+ 	 [SettlementViewset : paylist]Training complete in 0.379985 real seconds 
+
+DEBUG [2018-08-02 17:12:17] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 37204 38052 
+ 	 [SettlementCommissionViewset : list]Training complete in 0.388954 real seconds 
+
+DEBUG [2018-08-02 17:17:48] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 9324 15216 
+ 	 [SettlementCommissionViewset : paylist]Training complete in 0.417880 real seconds 
+
+DEBUG [2018-08-02 17:17:53] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 9324 30716 
+ 	 [SettlementCommissionViewset : paylist]Training complete in 0.664172 real seconds 
+
+DEBUG [2018-08-02 17:33:41] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 35164 26152 
+ 	 [SettlementCommissionViewset : paylist]Training complete in 0.439821 real seconds 
+
+DEBUG [2018-08-02 17:36:34] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 4356 6460 
+ 	 [SettlementCommissionViewset : retrieve]Training complete in 0.804836 real seconds 
+
+DEBUG [2018-08-02 17:39:14] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 31296 33864 
+ 	 [SettlementCommissionViewset : confirm]Training complete in 0.488693 real seconds 
+
+DEBUG [2018-08-02 17:46:43] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 7772 21396 
+ 	 [SettlementCommissionViewset : cancel_confirm]Training complete in 0.510672 real seconds 
+
+DEBUG [2018-08-02 17:46:53] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 7772 33580 
+ 	 [SettlementCommissionViewset : pay]Training complete in 0.515626 real seconds 
+
+DEBUG [2018-08-02 17:47:22] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 30944 38468 
+ 	 [SettlementCommissionViewset : paylist]Training complete in 0.441817 real seconds 
+

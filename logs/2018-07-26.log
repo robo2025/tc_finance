@@ -1,0 +1,21 @@
+DEBUG [2018-07-26 21:49:12] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 30996 30928 
+ 	 [nogoodsticket_query]Training complete in 4.0802717208862305 real seconds 
+
+DEBUG [2018-07-26 21:49:12] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 30996 30928 
+ 	 [TicketViewset : list]Training complete in 4.195724 real seconds 
+
+DEBUG [2018-07-26 22:45:56] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 26412 25136 
+ 	 [nogoodsticket_query]Training complete in 0.5537142753601074 real seconds 
+
+ERROR [2018-07-26 22:45:57] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 32 error 26412 25136 
+ 	 'ticket_id' 
+
+DEBUG [2018-07-26 22:46:27] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 26412 24644 
+ 	 [nogoodsticket_query]Training complete in 0.5046977996826172 real seconds 
+
+DEBUG [2018-07-26 22:47:08] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 29096 5892 
+ 	 [nogoodsticket_query]Training complete in 0.5004467964172363 real seconds 
+
+DEBUG [2018-07-26 22:47:09] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 29096 5892 
+ 	 [TicketViewset : ready]Training complete in 1.935818 real seconds 
+

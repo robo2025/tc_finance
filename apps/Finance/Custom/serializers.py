@@ -314,7 +314,7 @@ class CreateStatementSerializer(serializers.Serializer):
 		if st.exists() :
 			for item in st:
 				supplier.remove(item.supplier_id)
-		assert len(supplier), "请勿重复对账"
+		assert len(supplier), "当前没有符合条件生成对账单的数据"
 
 		#获取满足条件订单(含普通订单和方案订单)
 		statement_list=OrderAllQuery.query_statement(			\

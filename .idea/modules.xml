@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$USER_HOME$/tmp/tmp/MxOnline-py3.6_django2.0/.idea/MxOnline-py3.6_django2.0.iml" filepath="$USER_HOME$/tmp/tmp/MxOnline-py3.6_django2.0/.idea/MxOnline-py3.6_django2.0.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/tc_finance.iml" filepath="$PROJECT_DIR$/.idea/tc_finance.iml" />
+      <module fileurl="file://$USER_HOME$/bak_project/xadminproject/.idea/xadminproject.iml" filepath="$USER_HOME$/bak_project/xadminproject/.idea/xadminproject.iml" />
+    </modules>
+  </component>
+</project>
