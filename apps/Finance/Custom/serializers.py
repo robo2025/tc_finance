@@ -1183,6 +1183,7 @@ class FINReceiptListDetailSerializer(serializers.Serializer):
 	price = serializers.DecimalField(max_digits=18, decimal_places=2)
 	amount = serializers.SerializerMethodField()
 	ticket_money = serializers.SerializerMethodField()
+	commission = serializers.DecimalField(max_digits=18, decimal_places=2)
 
 	def get_amount(self,obj):
 		return obj.goods_money
