@@ -10,10 +10,10 @@ from apps.Finance.Custom.mixins import (ListModelMixinCustom, GenericViewSetCust
 from apps.Finance.Custom.serializers import (StatementSerializer,StatementDetailSerializer,
                                                 OrderAllQuery,StatementDetailExSerializer,NoFRceiptSerializer,
                                              YesFRceiptSerializer,StatementTicketSerializer,SettlementListSupCommissionSerializer,
-                                                StatementDetailSerializer1,SettlementListSupSerializer,SettlementListPaySupSerializer)
+                                                StatementDetailSerializer1,SettlementListSupSerializer,SettlementListPaySupSerializer,NoFinanceReceiptSerializer,FinanceReceiptDetailSerializer1)
 from apps.Finance.models import Statement,StatementDetail
 
-from apps.Finance.utils import get_orders_obj,noticket_query,yesticket_query,SettlementHandleGoods,SettlementHandleCommission
+from apps.Finance.utils import get_orders_obj,noticket_query,yesticket_query,SettlementHandleGoods,SettlementHandleCommission,nogoodsticket_query,yesgoodsticket_query
 
 class StatementSupViewset(ListModelMixinCustom,GenericViewSetCustom):
 
@@ -193,6 +193,39 @@ class StatementSupDetaiExlViewset(GenericViewSetCustom):
         }
 
         return {"data":data,'header':header}
+
+class TicketSupViewset(GenericViewSetCustom):
+    authentication_classes = [SupplierAuthentication]
+
+    filters_custom = [
+        {'key': "date", 'condition': "gte", 'inkey': 'start_dt' },
+        {'key': "date", 'condition': "lte", 'inkey': 'end_dt'},
+        {'key': "supplier_name", 'all_query':True,},
+        {'key': 'order_code','condition':'like'},
+        {'key':'tax_number','condition':'like',},
+        {'key':'title','conditino':'like'}
+    ]
+
+    @Core_connector(pagination=True)
+    def list(self, request):
+        is_type = self.request.query_params.get('is_type', '3')
+        if str(is_type) == '1':
+            DD_where_sql = " and t1.supplier_id=%s"
+            DD_params=[self.request.user.main_user_id]
+            FA_where_sql = " and t1.supplier_id=%s"
+            FA_params=[self.request.user.main_user_id]
+            TH_where_sql = " and t1.supplier_id=%s"
+            TH_params=[self.request.user.main_user_id]
+            obj, obj_FA = get_orders_obj(FA_flag=True,
+                                            DD_flag=True, TH_flag=True, DD_status=[6], TH_status=[14], FA_status=[5, 6, 7],
+                                                FA_params=FA_params,DD_params=DD_params,TH_params=TH_params,DD_where_sql=DD_where_sql,FA_where_sql=FA_where_sql,TH_where_sql=TH_where_sql)
+            return {'data': NoFinanceReceiptSerializer(nogoodsticket_query(obj,obj_FA), many=True).data}
+        elif str(is_type) == '2':
+            where_sql=" and  t2.supplier_id=%s"
+            params=[self.request.user.main_user_id]
+            return {'data': FinanceReceiptDetailSerializer1(yesgoodsticket_query(where_sql,params), many=True).data}
+        else:
+            raise PubErrorCustom("is_type有误！")
 
 class CommissionSupTicket(GenericViewSetCustom):
     authentication_classes = [SupplierAuthentication]

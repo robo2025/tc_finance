@@ -307,6 +307,9 @@ class FReceipt(models.Model):
 	create_time=models.DateTimeField(default=datetime.now,verbose_name='添加时间')
 	flag=models.IntegerField(default=1)  #1:货款开票   2:佣金开票
 
+	supplier_id=models.IntegerField()
+	supplier_name=models.CharField(max_length=100)
+
 	class Meta:
 		verbose_name = '开票信息'
 		db_table = 'receipt'
