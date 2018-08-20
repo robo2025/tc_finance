@@ -1135,6 +1135,8 @@ class NoFRceiptSerializer(serializers.Serializer):
 	ticket_amount=serializers.SerializerMethodField()
 	tot_amount=serializers.SerializerMethodField()
 	term=serializers.SerializerMethodField()
+	index=serializers.SerializerMethodField()
+
 
 
 	def get_term(self,obj):
@@ -1167,6 +1169,8 @@ class NoFRceiptSerializer(serializers.Serializer):
 		else :
 			return Decimal(0.0) - (abs(obj.use_commission) - abs(obj.ticket_amount))
 	def get_order_code(self,obj):
+		return obj.use_code
+	def get_index(self,obj):
 		return obj.use_code
 
 class YesFRceiptSerializer(NoFRceiptSerializer):
