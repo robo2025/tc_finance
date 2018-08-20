@@ -1,0 +1,39 @@
+DEBUG [2018-08-20 13:51:35] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 17596 21244 
+ 	 [CommissionTicket : all_guestname]Training complete in 1.237687 real seconds 
+
+DEBUG [2018-08-20 13:52:11] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 18520 13156 
+ 	 [CommissionTicket : all_guestname]Training complete in 1.492959 real seconds 
+
+DEBUG [2018-08-20 13:52:29] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 20000 20448 
+ 	 [CommissionTicket : all_guestname]Training complete in 1.207772 real seconds 
+
+DEBUG [2018-08-20 13:52:54] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 17664 19460 
+ 	 [CommissionTicket : all_guestname]Training complete in 1.264609 real seconds 
+
+DEBUG [2018-08-20 13:53:22] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 17664 15364 
+ 	 [noticket_query]Training complete in 2.9950149059295654 real seconds 
+
+DEBUG [2018-08-20 13:53:22] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 17664 15364 
+ 	 [CommissionTicket : list]Training complete in 3.056838 real seconds 
+
+DEBUG [2018-08-20 13:53:47] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 17664 21120 
+ 	 [yesticket_query]Training complete in 0.4248356819152832 real seconds 
+
+DEBUG [2018-08-20 13:53:47] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 17664 21120 
+ 	 [CommissionTicket : list]Training complete in 0.463726 real seconds 
+
+DEBUG [2018-08-20 14:00:36] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 14208 4856 
+ 	 [CommissionTicket : retrieve]Training complete in 0.925555 real seconds 
+
+DEBUG [2018-08-20 14:02:35] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 14208 8612 
+ 	 sso verify time:541.5494441986084 ms 
+
+DEBUG [2018-08-20 14:02:50] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 14208 15364 
+ 	 sso verify time:273.2710838317871 ms 
+
+DEBUG [2018-08-20 14:02:50] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 14208 15364 
+ 	 [yesgoodsticket_query]Training complete in 0.7590177059173584 real seconds 
+
+DEBUG [2018-08-20 14:02:51] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 14208 15364 
+ 	 [TicketViewset : list]Training complete in 0.810869 real seconds 
+

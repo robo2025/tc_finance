@@ -755,7 +755,7 @@ class NoFinanceReceiptSerializer(serializers.Serializer):
 	index=serializers.SerializerMethodField()
 
 	def get_guest_company_name(self,obj):
-		return obj.supplier_name
+		return obj.guest_company_name
 	def get_number(self,obj):
 		return obj.show_number
 	def get_date(self,obj):
@@ -979,7 +979,7 @@ class FinanceReceiptDetailSerializer1(serializers.Serializer):
 	index=serializers.SerializerMethodField()
 
 	def get_guest_company_name(self,obj):
-		return obj.supplier_name
+		return obj.guest_company_name
 
 	def get_number(self,obj):
 		return obj.number
