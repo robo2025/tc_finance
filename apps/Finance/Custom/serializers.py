@@ -1280,6 +1280,7 @@ class StatementTicketSerializer(serializers.ModelSerializer):
 	ticket_amount=serializers.SerializerMethodField()
 	status=serializers.SerializerMethodField()
 	url_number=serializers.SerializerMethodField()
+	img_url=serializers.SerializerMethodField()
 
 	def get_name(self,obj):
 		return '长沙孚中'
@@ -1302,9 +1303,15 @@ class StatementTicketSerializer(serializers.ModelSerializer):
 	def get_url_number(self,obj):
 		return len(obj.img_url.split('|')) if obj.img_url else 0
 
+	def get_img_url(self,obj):
+		if obj.img_url:
+			return [ item for item in obj.img_url.split('|')]
+		else:
+			return []
+
 	class Meta:
 		model=Statement
-		fields = ('name','limit','term','code','confirm_amount','taxfree_money','tax_money','total_money','ticket_amount','status','url_number')
+		fields = ('name','limit','term','code','confirm_amount','taxfree_money','tax_money','total_money','ticket_amount','status','url_number','img_url')
 
 class SettlementListPaySerializer(serializers.Serializer):
 	supplier_name = serializers.CharField()
