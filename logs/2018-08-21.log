@@ -46,3 +46,51 @@ DEBUG [2018-08-21 14:29:12] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log
 DEBUG [2018-08-21 14:29:13] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 13068 13028 
  	 [TicketUploadViewset : list]Training complete in 0.743013 real seconds 
 
+DEBUG [2018-08-21 14:29:36] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 13068 15752 
+ 	 sso verify time:259.3073844909668 ms 
+
+DEBUG [2018-08-21 14:30:04] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 13068 15908 
+ 	 sso verify time:208.44292640686035 ms 
+
+DEBUG [2018-08-21 14:30:04] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 13068 15908 
+ 	 [TicketUploadViewset : list]Training complete in 0.686213 real seconds 
+
+DEBUG [2018-08-21 14:30:13] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 13068 1392 
+ 	 sso verify time:256.3142776489258 ms 
+
+DEBUG [2018-08-21 14:30:14] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 13068 1392 
+ 	 [TicketUploadViewset : list]Training complete in 0.949459 real seconds 
+
+DEBUG [2018-08-21 14:31:03] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 13068 14220 
+ 	 sso verify time:231.38785362243652 ms 
+
+DEBUG [2018-08-21 14:31:03] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 13068 14220 
+ 	 [TicketUploadViewset : list]Training complete in 0.761961 real seconds 
+
+DEBUG [2018-08-21 14:45:40] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 13068 804 
+ 	 sso verify time:341.07065200805664 ms 
+
+DEBUG [2018-08-21 14:47:06] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 620 5788 
+ 	 sso verify time:744.0123558044434 ms 
+
+DEBUG [2018-08-21 14:47:33] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 612 6244 
+ 	 sso verify time:882.638692855835 ms 
+
+DEBUG [2018-08-21 14:47:34] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 612 6244 
+ 	 [TicketViewset : ready]Training complete in 1.514952 real seconds 
+
+DEBUG [2018-08-21 14:48:57] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 612 10956 
+ 	 sso verify time:240.3581142425537 ms 
+
+DEBUG [2018-08-21 14:50:05] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 612 4492 
+ 	 sso verify time:264.29176330566406 ms 
+
+DEBUG [2018-08-21 14:51:53] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 16088 5020 
+ 	 sso verify time:1120.0051307678223 ms 
+
+DEBUG [2018-08-21 14:52:13] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 16328 10668 
+ 	 sso verify time:821.800947189331 ms 
+
+DEBUG [2018-08-21 14:52:14] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 16328 10668 
+ 	 [TicketViewset : ready]Training complete in 1.575795 real seconds 
+
