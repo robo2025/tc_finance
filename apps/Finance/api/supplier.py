@@ -78,11 +78,11 @@ class TicketUploadViewset(GenericViewSetCustom):
             statement_queryset=statement_queryset.exclude(img_url='')
 
         if start_ym and end_ym and start_ym <= end_ym:
-            start_ym=start_ym.replace('-')
-            end_ym=end_ym.replace('-')
+            start_ym=start_ym.replace('-','')
+            end_ym=end_ym.replace('-','')
             statement_queryset=statement_queryset.filter(limit__gte=start_ym,limit__lte=end_ym)
 
-        return {'data':StatementTicketSerializer(statement_queryset.filter(status=3),many=True).data}
+        return {'data':StatementTicketSerializer(statement_queryset.filter(status=3,supplier_id=self.request.user.main_user_id),many=True).data}
 
     @Core_connector(transaction=True)
     def update(self,request,*args,**kwargs):
@@ -94,6 +94,18 @@ class TicketUploadViewset(GenericViewSetCustom):
                 raise PubErrorCustom("未找到")
             isinstance.update(img_url=img_url)
         return []
+
+    @list_route(methods=['GET'])
+    @Core_connector()
+    def upload(self,request,*args,**kwargs):
+        code=self.request.query_params.get('code',None)
+        try:
+            isinstance=Statement.objects.get(code=code,supplier_id=self.request.user.main_user_id)
+        except Statement.DoesNotExist:
+            raise PubErrorCustom("未找到！")
+
+        img_url = [ item for item in isinstance.img_url.split('|') ]
+        return {"data":{"img_url":img_url}}
 
 class StatementSupDetaiExlViewset(GenericViewSetCustom):
     authentication_classes = [SupplierAuthentication]

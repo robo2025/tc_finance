@@ -1,0 +1,27 @@
+DEBUG [2018-08-21 13:44:42] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 5152 15240 
+ 	 sso verify time:857.7172756195068 ms 
+
+ERROR [2018-08-21 13:44:42] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 32 error 5152 15240 
+ 	 replace() takes at least 2 arguments (1 given) 
+
+DEBUG [2018-08-21 13:45:08] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 15700 15468 
+ 	 sso verify time:609.3795299530029 ms 
+
+DEBUG [2018-08-21 13:45:42] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 16044 16052 
+ 	 sso verify time:545.5446243286133 ms 
+
+DEBUG [2018-08-21 13:45:43] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 16044 16052 
+ 	 [TicketUploadViewset : list]Training complete in 0.731005 real seconds 
+
+DEBUG [2018-08-21 14:07:09] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 5780 12844 
+ 	 sso verify time:796.9048023223877 ms 
+
+DEBUG [2018-08-21 14:07:10] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 5780 12844 
+ 	 [TicketUploadViewset : upload]Training complete in 0.782914 real seconds 
+
+DEBUG [2018-08-21 14:08:36] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 14524 15464 
+ 	 sso verify time:480.71956634521484 ms 
+
+DEBUG [2018-08-21 14:08:37] C:\Users\Tc\PycharmProjects\tc_finance\lib\utils\log.py 53 debug 14524 15464 
+ 	 [TicketUploadViewset : list]Training complete in 0.747003 real seconds 
+
